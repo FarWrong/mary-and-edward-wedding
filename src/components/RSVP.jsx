@@ -95,7 +95,7 @@ function RSVP() {
   return (
     <section className="section rsvp" id="rsvp">
       <div className="rsvp-bg">
-        <img src={CONFIG.photos.gallery[4]} alt="" aria-hidden="true" loading="lazy" />
+        <img src="https://img.snappr.com/vmc-3u9-wo4ksyunDoee6MfLIbU=/fit-in/2048x0/42edbb9f-7656-4911-b7ec-27c06ece3f6f" alt="" aria-hidden="true" loading="lazy" />
       </div>
 
       <div className="container-narrow" style={{ position: 'relative', zIndex: 1 }}>
