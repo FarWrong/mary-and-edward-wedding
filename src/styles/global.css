@@ -435,7 +435,7 @@ button {
     font-size: clamp(1.5rem, 4vw, 3.5rem);
     display: block;
     margin: 0.75rem 0;
-    color: var(--champagne-light);
+    color: #fff;
 }
 
 .hero-details {
@@ -729,6 +729,16 @@ button {
     color: var(--champagne-dark);
 }
 
+.details-note {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    color: var(--mauve-dark);
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.03em;
+}
+
 /* ============================================================
    VENUE
    ============================================================ */
@@ -750,6 +760,20 @@ button {
     max-width: 650px;
     margin: 0 auto 2.5rem;
     line-height: 1.85;
+}
+
+.venue-photo {
+    max-width: 800px;
+    margin: 0 auto 2.5rem;
+    overflow: hidden;
+    border: 1px solid rgba(197, 165, 114, 0.2);
+}
+
+.venue-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
 }
 
 .venue-info {
@@ -908,6 +932,9 @@ button {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
     margin-top: 1rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .registry-card {

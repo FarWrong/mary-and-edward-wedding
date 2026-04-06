@@ -37,11 +37,7 @@ function Footer() {
         </motion.div>
 
         <motion.p className="footer-message" variants={fadeUp}>
-          With love and gratitude
-        </motion.p>
-
-        <motion.p className="footer-hashtag" variants={fadeUp}>
-          {CONFIG.hashtag}
+          With Love
         </motion.p>
       </motion.div>
 

@@ -9,7 +9,7 @@ function Registry() {
         <SectionHeader
           label="Gifts"
           title="Registry"
-          subtitle="Your presence is the greatest gift. For those who wish to honor us further, we have registered at the following."
+          subtitle="Your presence means the world to us. For those who would like to give a gift, we are registered at the following."
         />
 
         <motion.div

@@ -20,19 +20,19 @@ function Venue() {
           </motion.h3>
         </div>
 
-        <motion.p
-          className="venue-description"
+        <motion.div
+          className="venue-photo"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
         >
-          Nestled along the shores of the Great South Bay, The Mansion at West
-          Sayville is a breathtaking waterfront estate steeped in Long Island
-          history. Its timeless elegance, manicured gardens, and sweeping views
-          of the bay provide the perfect backdrop for an unforgettable
-          celebration of love.
-        </motion.p>
+          <img
+            src="https://www.lessings.com/webphotos/2015320_133844_000.jpg"
+            alt="The Mansion at West Sayville"
+            loading="lazy"
+          />
+        </motion.div>
 
         <motion.div
           className="venue-info"

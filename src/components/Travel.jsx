@@ -8,19 +8,15 @@ const cards = [
     content: (
       <>
         <p>
-          We have arranged room blocks at select nearby hotels for our
-          guests&apos; convenience. Please mention our wedding when booking for
-          the group rate.
-        </p>
-        <p style={{ marginTop: '1rem' }}>
-          <strong>Sayville Inn</strong>
-          <br />
-          Walking distance from the venue
+          We have arranged a room block at the{' '}
+          <strong>Hilton Garden Inn Islip/MacArthur Airport</strong>{' '}
+          for our guests&apos; convenience. Details and booking
+          information can be found on your invitation.
         </p>
         <p style={{ marginTop: '0.75rem' }}>
-          <strong>Holiday Inn Express Ronkonkoma</strong>
+          3485 Veterans Memorial Hwy
           <br />
-          Approximately 15 minutes from the venue
+          Ronkonkoma, NY 11779
         </p>
       </>
     ),
@@ -40,7 +36,7 @@ const cards = [
           <strong>By Car:</strong>
           <br />
           Approximately 60 miles east of Manhattan via the Southern State
-          Parkway. Complimentary valet parking is available at the venue.
+          Parkway. Parking is available at the venue.
         </p>
       </>
     ),
@@ -50,13 +46,15 @@ const cards = [
     content: (
       <>
         <p>
-          If you are extending your visit, Long Island offers beautiful beaches,
-          vineyards, and charming villages to explore. The nearby Fire Island is
-          a short ferry ride from Sayville.
+          For those traveling from further afield, New York City is just an
+          hour west of the venue. Take in the skyline, stroll through
+          Central Park, or explore world-class dining and Broadway. Closer to
+          the venue, Long Island offers beautiful beaches, vineyards, and
+          charming villages. Fire Island is a short ferry ride from Sayville.
         </p>
         <p style={{ marginTop: '0.75rem' }}>
-          We recommend arriving the day before to settle in and enjoy the area
-          at your leisure.
+          We recommend arriving a day or two early to settle in and enjoy
+          everything the area has to offer.
         </p>
       </>
     ),

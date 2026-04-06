@@ -12,7 +12,6 @@ function Nav() {
   }, [])
 
   const links = [
-    { label: 'Our Story', id: 'story' },
     { label: 'Details', id: 'details' },
     { label: 'Venue', id: 'venue' },
     { label: 'Gallery', id: 'gallery' },

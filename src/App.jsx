@@ -3,7 +3,6 @@ import { AnimatePresence } from 'framer-motion'
 import LoadingScreen from './components/LoadingScreen'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
-import Story from './components/Story'
 import Details from './components/Details'
 import Venue from './components/Venue'
 import Gallery from './components/Gallery'
@@ -38,7 +37,6 @@ function App() {
         <Nav />
         <Hero isReady={heroReady} />
         <main>
-          <Story />
           <Details />
           <Venue />
           <Gallery />

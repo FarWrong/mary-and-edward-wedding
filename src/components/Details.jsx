@@ -27,8 +27,18 @@ function Details() {
         <SectionHeader
           label="The Celebration"
           title="Wedding Details"
-          subtitle="We joyfully invite you to share in this beautiful day."
+          subtitle="Everything you need to know about the day."
         />
+
+        <motion.p
+          className="details-note"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
+        >
+          This will be an adults-only celebration. Thank you for understanding.
+        </motion.p>
 
         <div className="details-grid">
           <motion.div
@@ -49,7 +59,7 @@ function Details() {
             />
             <span className="detail-icon">&#x2727;</span>
             <h3>Ceremony</h3>
-            <span className="detail-time">Ceremony Begins Promptly at Two</span>
+            <span className="detail-time">Ceremony Begins Promptly at Two in the Afternoon</span>
             <p>
               St. Lawrence the Martyr Roman Catholic Church
               <br />
@@ -58,7 +68,7 @@ function Details() {
               Sayville, NY 11782
             </p>
             <p className="detail-note">Please arrive a little early</p>
-            <span className="detail-dress">Black Tie</span>
+            <span className="detail-dress">Formal Dress</span>
           </motion.div>
 
           <motion.div
@@ -80,12 +90,12 @@ function Details() {
             <span className="detail-icon">&#x2725;</span>
             <h3>Reception</h3>
             <span className="detail-time">
-              Immediately Following the Ceremony
+              Four in the Afternoon, Following the Ceremony
             </span>
             <p>
               The Mansion at West Sayville
               <br />
-              440 Montauk Highway
+              200 Main St
               <br />
               West Sayville, NY 11796
             </p>

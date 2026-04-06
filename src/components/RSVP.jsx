@@ -38,7 +38,7 @@ function RSVP() {
   const [submitted, setSubmitted] = useState(false)
   const [formData, setFormData] = useState({
     name: '', email: '', attending: '',
-    hasInvitePlusOne: '', plusOne: '', plusOneName: '',
+    hasInvitePlusOne: '', plusOne: '', plusOneName: '', plusOneEmail: '',
     dietary: '', song: '', message: '',
   })
   const [errors, setErrors] = useState({})
@@ -49,6 +49,8 @@ function RSVP() {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: false }))
   }
 
+  const declined = formData.attending === 'no'
+
   const next = () => {
     if (step === 0) {
       const newErrors = {}
@@ -56,6 +58,7 @@ function RSVP() {
       if (!formData.email.trim()) newErrors.email = true
       if (!formData.attending) newErrors.attending = true
       if (Object.keys(newErrors).length) { setErrors(newErrors); return }
+      if (declined) { handleSubmit(); return }
     }
     setStep((s) => Math.min(s + 1, 2))
   }
@@ -64,22 +67,42 @@ function RSVP() {
     setStep((s) => Math.max(s - 1, 0))
   }
 
-  const handleSubmit = () => {
-    console.log('RSVP Submission:', formData)
+  const handleSubmit = async () => {
+    try {
+      await fetch('https://formsubmit.co/ajax/morewrong32@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `Wedding RSVP: ${formData.name} - ${formData.attending === 'yes' ? 'Attending' : 'Declined'}`,
+          Name: formData.name,
+          Email: formData.email,
+          Attending: formData.attending === 'yes' ? 'Joyfully Accepts' : 'Regretfully Declines',
+          'Plus One Invited': formData.hasInvitePlusOne || 'N/A',
+          'Bringing Plus One': formData.plusOne || 'N/A',
+          'Plus One Name': formData.plusOneName || 'N/A',
+          'Plus One Email': formData.plusOneEmail || 'N/A',
+          'Dietary Requirements': formData.dietary || 'None',
+          'Song Request': formData.song || 'None',
+          Message: formData.message || 'None',
+        }),
+      })
+    } catch (err) {
+      console.error('RSVP submit error:', err)
+    }
     setSubmitted(true)
   }
 
   return (
     <section className="section rsvp" id="rsvp">
       <div className="rsvp-bg">
-        <img src={CONFIG.photos.gallery[4]} alt="" aria-hidden="true" loading="lazy" />
+        <img src={CONFIG.photos.gallery[9]} alt="" aria-hidden="true" loading="lazy" />
       </div>
 
       <div className="container-narrow" style={{ position: 'relative', zIndex: 1 }}>
         <SectionHeader
           label="Respond"
           title="Kindly Respond"
-          subtitle="The honor of your presence is requested. Please respond by June 1, 2026."
+          subtitle={<>We would love to have you there. Please respond by <strong>June 14, 2026</strong>.</>}
         />
 
         <AnimatePresence mode="wait">
@@ -188,7 +211,7 @@ function RSVP() {
                             <motion.button
                               type="button"
                               className={`plusone-btn${formData.hasInvitePlusOne === 'no' ? ' active' : ''}`}
-                              onClick={() => setFormData((prev) => ({ ...prev, hasInvitePlusOne: 'no', plusOne: '', plusOneName: '' }))}
+                              onClick={() => setFormData((prev) => ({ ...prev, hasInvitePlusOne: 'no', plusOne: '', plusOneName: '', plusOneEmail: '' }))}
                               whileTap={{ scale: 0.97 }}
                             >
                               No
@@ -218,7 +241,7 @@ function RSVP() {
                                   <motion.button
                                     type="button"
                                     className={`plusone-btn${formData.plusOne === 'no' ? ' active' : ''}`}
-                                    onClick={() => setFormData((prev) => ({ ...prev, plusOne: 'no', plusOneName: '' }))}
+                                    onClick={() => setFormData((prev) => ({ ...prev, plusOne: 'no', plusOneName: '', plusOneEmail: '' }))}
                                     whileTap={{ scale: 0.97 }}
                                   >
                                     No
@@ -234,13 +257,26 @@ function RSVP() {
                                     transition={{ duration: 0.35, ease: EASE }}
                                     style={{ overflow: 'hidden' }}
                                   >
-                                    <div className="plusone-name-field">
+                                    <div className="form-group">
+                                      <label htmlFor="plusOneName">Guest's Full Name</label>
                                       <input
                                         type="text"
+                                        id="plusOneName"
                                         name="plusOneName"
                                         value={formData.plusOneName}
                                         onChange={handleChange}
-                                        placeholder="Guest's full name"
+                                        placeholder="As it appears on your invitation"
+                                      />
+                                    </div>
+                                    <div className="form-group">
+                                      <label htmlFor="plusOneEmail">Guest's Email Address</label>
+                                      <input
+                                        type="email"
+                                        id="plusOneEmail"
+                                        name="plusOneEmail"
+                                        value={formData.plusOneEmail}
+                                        onChange={handleChange}
+                                        placeholder="their@email.com"
                                       />
                                     </div>
                                   </motion.div>
@@ -295,16 +331,16 @@ function RSVP() {
                 )}
                 <motion.button
                   className="rsvp-btn rsvp-btn-next"
-                  onClick={step < 2 ? next : handleSubmit}
+                  onClick={(step < 2 && !declined) ? next : (step === 0 && declined) ? next : handleSubmit}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                 >
-                  {step < 2 ? 'Continue' : 'Send Response'}
+                  {(step === 0 && declined) ? 'Send Response' : step < 2 ? 'Continue' : 'Send Response'}
                 </motion.button>
               </div>
 
               <p className="rsvp-deadline">
-                Kindly respond by the first of June, two thousand twenty-six.
+                Kindly respond by the fourteenth of June, two thousand twenty-six.
               </p>
             </motion.div>
           ) : (
@@ -335,9 +371,9 @@ function RSVP() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
               >
-                Your response has been received with gratitude.
-                <br />
-                We cannot wait to celebrate with you.
+                {declined
+                  ? 'We\'ll miss you! Thank you for letting us know.'
+                  : 'We\'re looking forward to celebrating with you.'}
               </motion.p>
             </motion.div>
           )}
