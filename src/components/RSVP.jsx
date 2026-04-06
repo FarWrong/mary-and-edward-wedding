@@ -303,7 +303,7 @@ function RSVP() {
                             placeholder="Help us build our playlist" />
                         </div>
                         <div className="form-group">
-                          <label htmlFor="message">A Note for the Couple</label>
+                          <label htmlFor="message">Leave us a note, if you'd like</label>
                           <textarea id="message" name="message"
                             value={formData.message} onChange={handleChange}
                             placeholder="Your warm wishes..."
