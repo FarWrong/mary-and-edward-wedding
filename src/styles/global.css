@@ -1026,6 +1026,24 @@ button {
     border-color: var(--champagne);
 }
 
+.registry-btn {
+    display: inline-block;
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    color: var(--dark);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 1rem 2.5rem;
+    border: 1px solid rgba(197, 165, 114, 0.4);
+    transition: border-color 0.3s, background 0.3s;
+}
+
+.registry-btn:hover {
+    border-color: var(--champagne);
+    background: rgba(197, 165, 114, 0.08);
+}
+
 /* RSVP Card */
 .rsvp-card {
     max-width: 600px;
