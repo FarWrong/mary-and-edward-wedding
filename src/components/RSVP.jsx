@@ -348,16 +348,9 @@ function RSVP() {
                           )}
                         </AnimatePresence>
                         <div className="form-group">
-                          <label htmlFor="dietary">Dietary Requirements</label>
-                          <input type="text" id="dietary" name="dietary"
-                            value={formData.dietary} onChange={handleChange}
-                            placeholder="Any allergies or dietary needs" />
-                        </div>
-                        <div className="form-group">
                           <label htmlFor="message">Do you have any dietary restrictions or anything else we should know?</label>
                           <textarea id="message" name="message"
                             value={formData.message} onChange={handleChange}
-                            placeholder="Your warm wishes..."
                             rows={4} />
                         </div>
                       </>
