@@ -59,7 +59,7 @@ function Details() {
             />
             <span className="detail-icon">&#x2727;</span>
             <h3>Ceremony</h3>
-            <span className="detail-time">Ceremony Begins Promptly at 2:00 PM</span>
+            <span className="detail-time">Ceremony Begins Promptly at Two in the Afternoon</span>
             <p>
               St. Lawrence the Martyr Roman Catholic Church
               <br />
@@ -90,7 +90,7 @@ function Details() {
             <span className="detail-icon">&#x2725;</span>
             <h3>Reception</h3>
             <span className="detail-time">
-              4:00 PM, Following the Ceremony
+              Four in the Afternoon, Following the Ceremony
             </span>
             <p>
               The Mansion at West Sayville
