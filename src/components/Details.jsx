@@ -59,7 +59,7 @@ function Details() {
             />
             <span className="detail-icon">&#x2727;</span>
             <h3>Ceremony</h3>
-            <span className="detail-time">Ceremony Begins Promptly at Two in the Afternoon</span>
+            <span className="detail-time">Begins Promptly at Two in the Afternoon</span>
             <p>
               St. Lawrence the Martyr Roman Catholic Church
               <br />
