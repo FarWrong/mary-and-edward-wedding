@@ -39,6 +39,7 @@ function RSVP() {
   const [formData, setFormData] = useState({
     name: '', email: '', attending: '',
     hasInvitePlusOne: '', plusOne: '', plusOneName: '', plusOneEmail: '',
+    hotelBlock: '', needTransport: '',
     dietary: '', song: '', message: '',
   })
   const [errors, setErrors] = useState({})
@@ -81,6 +82,8 @@ function RSVP() {
           'Bringing Plus One': formData.plusOne || 'N/A',
           'Plus One Name': formData.plusOneName || 'N/A',
           'Plus One Email': formData.plusOneEmail || 'N/A',
+          'Hotel Block': formData.hotelBlock || 'N/A',
+          'Needs Transportation': formData.needTransport || 'N/A',
           'Dietary Requirements': formData.dietary || 'None',
           'Song Request': formData.song || 'None',
           Message: formData.message || 'None',
@@ -290,6 +293,60 @@ function RSVP() {
 
                     {i === 2 && (
                       <>
+                        <div className="form-group">
+                          <label>Do you plan on staying in our hotel block?</label>
+                          <div className="plusone-toggle">
+                            <motion.button
+                              type="button"
+                              className={`plusone-btn${formData.hotelBlock === 'yes' ? ' active' : ''}`}
+                              onClick={() => setFormData((prev) => ({ ...prev, hotelBlock: 'yes' }))}
+                              whileTap={{ scale: 0.97 }}
+                            >
+                              Yes
+                            </motion.button>
+                            <motion.button
+                              type="button"
+                              className={`plusone-btn${formData.hotelBlock === 'no' ? ' active' : ''}`}
+                              onClick={() => setFormData((prev) => ({ ...prev, hotelBlock: 'no', needTransport: '' }))}
+                              whileTap={{ scale: 0.97 }}
+                            >
+                              No
+                            </motion.button>
+                          </div>
+                        </div>
+                        <AnimatePresence>
+                          {formData.hotelBlock === 'yes' && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.35, ease: EASE }}
+                              style={{ overflow: 'hidden' }}
+                            >
+                              <div className="form-group">
+                                <label>Will you need transportation to the hotel?</label>
+                                <div className="plusone-toggle">
+                                  <motion.button
+                                    type="button"
+                                    className={`plusone-btn${formData.needTransport === 'yes' ? ' active' : ''}`}
+                                    onClick={() => setFormData((prev) => ({ ...prev, needTransport: 'yes' }))}
+                                    whileTap={{ scale: 0.97 }}
+                                  >
+                                    Yes
+                                  </motion.button>
+                                  <motion.button
+                                    type="button"
+                                    className={`plusone-btn${formData.needTransport === 'no' ? ' active' : ''}`}
+                                    onClick={() => setFormData((prev) => ({ ...prev, needTransport: 'no' }))}
+                                    whileTap={{ scale: 0.97 }}
+                                  >
+                                    No
+                                  </motion.button>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                         <div className="form-group">
                           <label htmlFor="dietary">Dietary Requirements</label>
                           <input type="text" id="dietary" name="dietary"
