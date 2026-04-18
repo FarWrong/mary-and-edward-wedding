@@ -354,12 +354,6 @@ function RSVP() {
                             placeholder="Any allergies or dietary needs" />
                         </div>
                         <div className="form-group">
-                          <label htmlFor="songRequest">Song Request</label>
-                          <input type="text" id="songRequest" name="song"
-                            value={formData.song} onChange={handleChange}
-                            placeholder="Help us build our playlist" />
-                        </div>
-                        <div className="form-group">
                           <label htmlFor="message">Do you have any dietary restrictions or anything else we should know?</label>
                           <textarea id="message" name="message"
                             value={formData.message} onChange={handleChange}
