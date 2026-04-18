@@ -360,7 +360,7 @@ function RSVP() {
                             placeholder="Help us build our playlist" />
                         </div>
                         <div className="form-group">
-                          <label htmlFor="message">Leave us a note, if you'd like</label>
+                          <label htmlFor="message">Do you have any dietary restrictions or anything else we should know?</label>
                           <textarea id="message" name="message"
                             value={formData.message} onChange={handleChange}
                             placeholder="Your warm wishes..."
