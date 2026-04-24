@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CONFIG, EASE } from '../config'
+import { EASE } from '../config'
 import SectionHeader from './SectionHeader'
 
 const STEPS = [
@@ -324,7 +324,7 @@ function RSVP() {
                               style={{ overflow: 'hidden' }}
                             >
                               <div className="form-group">
-                                <label>Will you need transportation to the hotel?</label>
+                                <label>Will you need transportation from the assigned hotel to the venue the day of?</label>
                                 <div className="plusone-toggle">
                                   <motion.button
                                     type="button"
