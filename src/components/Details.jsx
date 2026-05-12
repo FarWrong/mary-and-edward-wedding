@@ -30,15 +30,6 @@ function Details() {
           subtitle="Everything you need to know about the day."
         />
 
-        <motion.p
-          className="details-note"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
-        >
-          This will be an adults-only celebration. Thank you for understanding.
-        </motion.p>
 
         <div className="details-grid">
           <motion.div
