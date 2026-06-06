@@ -105,7 +105,7 @@ function RSVP() {
         <SectionHeader
           label="Respond"
           title="Kindly Respond"
-          subtitle={<>We would love to have you there. Please respond by <strong>June 14, 2026</strong>.</>}
+          subtitle={<>We would love to have you there. Please respond by <strong>June 28, 2026</strong>.</>}
         />
 
         <AnimatePresence mode="wait">
@@ -384,7 +384,7 @@ function RSVP() {
               </div>
 
               <p className="rsvp-deadline">
-                Kindly respond by the fourteenth of June, two thousand twenty-six.
+                Kindly respond by the twenty-eighth of June, two thousand twenty-six.
               </p>
             </motion.div>
           ) : (
