@@ -1596,7 +1596,7 @@ button {
     flex-direction: column;
 }
 
-.petal-canvas {
+.vine-canvas {
     position: fixed;
     top: 0;
     left: 0;
@@ -1606,7 +1606,7 @@ button {
     z-index: 1;
 }
 
-.petal-canvas canvas {
+.vine-canvas canvas {
     display: block;
 }
 

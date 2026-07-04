@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CONFIG, EASE } from '../config'
 import { GUESTS } from '../seatingData'
-import PetalCanvas from './PetalCanvas'
+import VineCanvas from './VineCanvas'
 
 function lastName(name) {
   const parts = name.trim().split(/\s+/)
@@ -75,7 +75,7 @@ function SeatingPage() {
 
   return (
     <div className="seating-page">
-      <PetalCanvas />
+      <VineCanvas />
 
       <header className="seating-header">
         <a href="/" className="seating-back">
