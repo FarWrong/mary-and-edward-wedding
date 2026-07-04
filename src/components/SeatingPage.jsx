@@ -4,9 +4,13 @@ import { CONFIG, EASE } from '../config'
 import { GUESTS } from '../seatingData'
 import VineCanvas from './VineCanvas'
 
+const NAME_SUFFIXES = new Set(['jr', 'jr.', 'sr', 'sr.', 'ii', 'iii', 'iv'])
+
 function lastName(name) {
   const parts = name.trim().split(/\s+/)
-  return parts[parts.length - 1]
+  let i = parts.length - 1
+  while (i > 0 && NAME_SUFFIXES.has(parts[i].toLowerCase())) i--
+  return parts[i]
 }
 
 function tableLabel(table) {
@@ -20,19 +24,19 @@ function normalize(str) {
     .replace(/[\u0300-\u036f]/g, '')
 }
 
-const SORTED_GUESTS = [...GUESTS].sort(
-  (a, b) =>
-    lastName(a.name).localeCompare(lastName(b.name)) ||
-    a.name.localeCompare(b.name)
-)
+// Stable per-guest ids let duplicate names (e.g. two guests with the
+// same first and last name at one table) behave independently.
+const SORTED_GUESTS = [...GUESTS]
+  .sort(
+    (a, b) =>
+      lastName(a.name).localeCompare(lastName(b.name)) ||
+      a.name.localeCompare(b.name)
+  )
+  .map((guest, id) => ({ ...guest, id }))
 
 const ALL_LETTERS = [
   ...new Set(SORTED_GUESTS.map((g) => lastName(g.name)[0].toUpperCase())),
 ].sort()
-
-function guestKey(guest) {
-  return `${guest.name}-${guest.table}`
-}
 
 function SeatingPage() {
   const [query, setQuery] = useState('')
@@ -198,20 +202,19 @@ function SeatingPage() {
                 <h2 className="seating-letter">{letter}</h2>
                 <ul className="seating-rows">
                   {guests.map((guest) => {
-                    const key = guestKey(guest)
-                    const isOpen = openKey === key
+                    const isOpen = openKey === guest.id
                     const mates = isOpen
                       ? SORTED_GUESTS.filter(
-                          (g) => g.table === guest.table && g.name !== guest.name
+                          (g) => g.table === guest.table && g.id !== guest.id
                         )
                       : []
                     return (
-                      <li key={key} className="seating-row-item">
+                      <li key={guest.id} className="seating-row-item">
                         <button
                           type="button"
                           className={`seating-row${isOpen ? ' open' : ''}`}
                           aria-expanded={isOpen}
-                          onClick={() => setOpenKey(isOpen ? null : key)}
+                          onClick={() => setOpenKey(isOpen ? null : guest.id)}
                         >
                           <span className="seating-name">{guest.name}</span>
                           <span className="seating-leader" aria-hidden="true" />
