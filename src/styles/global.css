@@ -1729,6 +1729,48 @@ button {
     color: var(--dark);
 }
 
+/* A–Z jump strip */
+.seating-letter-nav {
+    max-width: 520px;
+    margin: 0.5rem auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.1rem;
+}
+
+.seating-letter-btn {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.9rem;
+    line-height: 1;
+    color: var(--champagne-dark);
+    padding: 0.3rem 0.42rem;
+    border-radius: 2px;
+    transition: background-color 0.25s, color 0.25s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.seating-letter-btn:disabled {
+    color: var(--mauve-light);
+    opacity: 0.5;
+    cursor: default;
+}
+
+@media (hover: hover) {
+    .seating-letter-btn:not(:disabled):hover {
+        background: rgba(197, 165, 114, 0.1);
+    }
+}
+
+.seating-letter-btn:not(:disabled):active {
+    background: rgba(197, 165, 114, 0.15);
+}
+
+.seating-letter-btn:focus-visible {
+    outline: 1px solid var(--champagne);
+    outline-offset: 1px;
+}
+
 /* Guest list */
 .seating-list-wrapper {
     position: relative;

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CONFIG, EASE } from '../config'
 import { GUESTS } from '../seatingData'
@@ -26,6 +26,10 @@ const SORTED_GUESTS = [...GUESTS].sort(
     a.name.localeCompare(b.name)
 )
 
+const ALL_LETTERS = [
+  ...new Set(SORTED_GUESTS.map((g) => lastName(g.name)[0].toUpperCase())),
+].sort()
+
 function guestKey(guest) {
   return `${guest.name}-${guest.table}`
 }
@@ -33,6 +37,7 @@ function guestKey(guest) {
 function SeatingPage() {
   const [query, setQuery] = useState('')
   const [openKey, setOpenKey] = useState(null)
+  const barRef = useRef(null)
 
   useEffect(() => {
     document.title = `Seating Chart — ${CONFIG.partner2} & ${CONFIG.partner1}`
@@ -53,6 +58,20 @@ function SeatingPage() {
     }
     return [...map.entries()]
   }, [filtered])
+
+  const presentLetters = useMemo(
+    () => new Set(groups.map(([letter]) => letter)),
+    [groups]
+  )
+
+  const jumpToLetter = (letter) => {
+    const el = document.getElementById(`seating-group-${letter}`)
+    if (!el) return
+    const barHeight = barRef.current ? barRef.current.offsetHeight : 0
+    const top =
+      el.getBoundingClientRect().top + window.pageYOffset - barHeight - 8
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
 
   return (
     <div className="seating-page">
@@ -83,7 +102,7 @@ function SeatingPage() {
         </motion.div>
       </header>
 
-      <div className="seating-search-bar">
+      <div className="seating-search-bar" ref={barRef}>
         <div className="seating-search-inner">
           <svg
             className="seating-search-icon"
@@ -117,6 +136,19 @@ function SeatingPage() {
             </button>
           )}
         </div>
+        <nav className="seating-letter-nav" aria-label="Jump to a letter">
+          {ALL_LETTERS.map((letter) => (
+            <button
+              key={letter}
+              type="button"
+              className="seating-letter-btn"
+              disabled={!presentLetters.has(letter)}
+              onClick={() => jumpToLetter(letter)}
+            >
+              {letter}
+            </button>
+          ))}
+        </nav>
       </div>
 
       <main className="seating-list-wrapper">
@@ -148,6 +180,7 @@ function SeatingPage() {
             groups.map(([letter, guests], groupIndex) => (
               <motion.section
                 key={letter}
+                id={`seating-group-${letter}`}
                 className="seating-group"
                 layout="position"
                 initial={{ opacity: 0, y: 10 }}
