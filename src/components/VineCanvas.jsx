@@ -34,57 +34,43 @@ function smoothstep(x) {
   return t * t * (3 - 2 * t)
 }
 
-function buildVine(viewW, viewH, leafTexture, leafGeometry, blossomGeometry, isSmall) {
+// Corner anchor slots only — tendrils stay out of the content column
+const ANCHORS = [
+  [-1, -1],
+  [1, -1],
+  [-1, 1],
+  [1, 1],
+]
+
+function buildVine(viewW, viewH, leafTexture, leafGeometry, blossomGeometry, isSmall, anchorIndex) {
   const group = new THREE.Group()
 
-  // Anchor on a random screen edge, heading inward
-  const edge = Math.floor(Math.random() * 4)
-  let x, y, heading
-  if (edge === 0) {
-    x = (Math.random() - 0.5) * viewW * 0.9
-    y = -viewH * 0.52
-    heading = Math.PI / 2 + (Math.random() - 0.5) * 0.8
-  } else if (edge === 1) {
-    x = (Math.random() - 0.5) * viewW * 0.9
-    y = viewH * 0.52
-    heading = -Math.PI / 2 + (Math.random() - 0.5) * 0.8
-  } else if (edge === 2) {
-    x = -viewW * 0.52
-    y = (Math.random() - 0.5) * viewH * 0.9
-    heading = (Math.random() - 0.5) * 0.8
-  } else {
-    x = viewW * 0.52
-    y = (Math.random() - 0.5) * viewH * 0.9
-    heading = Math.PI + (Math.random() - 0.5) * 0.8
-  }
+  // Start at the assigned corner / edge midpoint, heading toward center
+  const [ax, ay] = ANCHORS[anchorIndex % ANCHORS.length]
+  let x =
+    ax === 0
+      ? (Math.random() - 0.5) * viewW * 0.5
+      : ax * viewW * (0.46 + Math.random() * 0.06)
+  let y = ay * viewH * (0.46 + Math.random() * 0.06)
+  let heading = Math.atan2(-y, -x) + (Math.random() - 0.5) * 0.7
 
-  // Meandering walk with drifting curvature — gentle curls
+  // Short tendril that tightens into a little spiral, like a fern frond
   const points = []
-  let curvature = (Math.random() - 0.5) * 0.5
-  const steps = 13 + Math.floor(Math.random() * 5)
-  const stepLen = Math.min(viewW, viewH) * (0.05 + Math.random() * 0.035)
+  const curl = Math.random() < 0.5 ? 1 : -1
+  let curvature = curl * (0.16 + Math.random() * 0.1)
+  let stepLen = Math.min(viewW, viewH) * (0.032 + Math.random() * 0.014)
+  const steps = 14
   for (let i = 0; i < steps; i++) {
-    points.push(new THREE.Vector3(x, y, (Math.random() - 0.5) * 20))
-    x = THREE.MathUtils.clamp(
-      x + Math.cos(heading) * stepLen,
-      -viewW * 0.55,
-      viewW * 0.55
-    )
-    y = THREE.MathUtils.clamp(
-      y + Math.sin(heading) * stepLen,
-      -viewH * 0.55,
-      viewH * 0.55
-    )
+    points.push(new THREE.Vector3(x, y, (Math.random() - 0.5) * 10))
+    x += Math.cos(heading) * stepLen
+    y += Math.sin(heading) * stepLen
     heading += curvature
-    curvature = THREE.MathUtils.clamp(
-      curvature + (Math.random() - 0.5) * 0.25,
-      -0.6,
-      0.6
-    )
+    curvature *= 1.14 // spiral tightens toward the tip
+    stepLen *= 0.91 // and the steps shorten
   }
 
   const curve = new THREE.CatmullRomCurve3(points)
-  const stemGeometry = new THREE.TubeGeometry(curve, 180, 1.0, 5, false)
+  const stemGeometry = new THREE.TubeGeometry(curve, 120, 0.75, 5, false)
   const stemMaterial = new THREE.MeshBasicMaterial({
     color: VINE_COLORS[Math.floor(Math.random() * VINE_COLORS.length)],
     transparent: true,
@@ -96,12 +82,12 @@ function buildVine(viewW, viewH, leafTexture, leafGeometry, blossomGeometry, isS
   stemGeometry.setDrawRange(0, 0)
   group.add(stem)
 
-  // Leaves sprouting along the stem, plus a few blush blossoms
+  // A few small leaves along the stem, plus the odd blush blossom
   const sprouts = []
-  const leafCount = isSmall ? 7 : 11
+  const leafCount = isSmall ? 4 : 6
   for (let i = 0; i < leafCount; i++) {
-    const t = 0.12 + (i / leafCount) * 0.82 + Math.random() * 0.04
-    const isBlossom = Math.random() < 0.22
+    const t = 0.15 + (i / leafCount) * 0.7 + Math.random() * 0.04
+    const isBlossom = Math.random() < 0.2
     const material = new THREE.MeshBasicMaterial({
       map: isBlossom ? null : leafTexture,
       color: isBlossom
@@ -124,9 +110,9 @@ function buildVine(viewW, viewH, leafTexture, leafGeometry, blossomGeometry, isS
     sprout.userData = {
       t,
       targetScale: isBlossom
-        ? 0.35 + Math.random() * 0.25
-        : 0.55 + Math.random() * 0.45,
-      targetOpacity: isBlossom ? 0.5 : 0.42,
+        ? 0.2 + Math.random() * 0.12
+        : 0.3 + Math.random() * 0.2,
+      targetOpacity: isBlossom ? 0.42 : 0.36,
       swayPhase: Math.random() * Math.PI * 2,
     }
     sprout.scale.setScalar(0.001)
@@ -134,14 +120,36 @@ function buildVine(viewW, viewH, leafTexture, leafGeometry, blossomGeometry, isS
     sprouts.push(sprout)
   }
 
+  // Tiny bud right at the spiral's tip
+  const bud = new THREE.Mesh(
+    blossomGeometry,
+    new THREE.MeshBasicMaterial({
+      color: BLOSSOM_COLOR,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
+    })
+  )
+  bud.position.copy(curve.getPoint(0.99))
+  bud.userData = {
+    t: 0.92,
+    targetScale: 0.22 + Math.random() * 0.1,
+    targetOpacity: 0.45,
+    swayPhase: Math.random() * Math.PI * 2,
+  }
+  bud.scale.setScalar(0.001)
+  group.add(bud)
+  sprouts.push(bud)
+
   return {
     group,
     stem,
     totalIndex,
     sprouts,
-    stemOpacity: 0.4 + Math.random() * 0.12,
+    anchorIndex,
+    stemOpacity: 0.32 + Math.random() * 0.1,
     time: -Math.random() * 4, // stagger start
-    growDuration: 20 + Math.random() * 12,
+    growDuration: 16 + Math.random() * 8,
     holdDuration: 12 + Math.random() * 8,
     fadeDuration: 5,
   }
@@ -165,7 +173,7 @@ function VineCanvas() {
       '(prefers-reduced-motion: reduce)'
     ).matches
     const isSmall = window.innerWidth < 768
-    const VINE_COUNT = isSmall ? 4 : 6
+    const VINE_COUNT = 4 // one small tendril per corner
 
     let width = window.innerWidth
     let height = window.innerHeight
@@ -189,7 +197,7 @@ function VineCanvas() {
 
     let vines = []
     for (let i = 0; i < VINE_COUNT; i++) {
-      const vine = buildVine(viewW, viewH, leafTexture, leafGeometry, blossomGeometry, isSmall)
+      const vine = buildVine(viewW, viewH, leafTexture, leafGeometry, blossomGeometry, isSmall, i)
       // Scatter initial progress so the page never looks bare
       vine.time += (i / VINE_COUNT) * vine.growDuration * 0.8
       scene.add(vine.group)
@@ -216,9 +224,9 @@ function VineCanvas() {
         progress = 1
         fade = 1 - smoothstep((t - growDuration - holdDuration) / fadeDuration)
       } else {
-        // Regrow a fresh vine in its place
+        // Regrow a fresh tendril in the same corner
         disposeVine(vine, scene)
-        const fresh = buildVine(viewW, viewH, leafTexture, leafGeometry, blossomGeometry, isSmall)
+        const fresh = buildVine(viewW, viewH, leafTexture, leafGeometry, blossomGeometry, isSmall, vine.anchorIndex)
         scene.add(fresh.group)
         return fresh
       }
