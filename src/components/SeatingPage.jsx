@@ -2,7 +2,6 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CONFIG, EASE } from '../config'
 import { GUESTS } from '../seatingData'
-import VineCanvas from './VineCanvas'
 
 const NAME_SUFFIXES = new Set(['jr', 'jr.', 'sr', 'sr.', 'ii', 'iii', 'iv'])
 
@@ -79,8 +78,6 @@ function SeatingPage() {
 
   return (
     <div className="seating-page">
-      <VineCanvas />
-
       <header className="seating-header">
         <a href="/" className="seating-back">
           &larr; Back to the Wedding

@@ -53,7 +53,7 @@ export const GUESTS = [
   { name: 'Andrew Li', table: 4 },
   { name: 'Junyu Li', table: 4 },
   { name: 'Daniel Albin', table: 4 },
-  { name: 'Josh Albin', table: 4 },
+  { name: 'Joshua Albin', table: 4 },
   { name: 'Lawrence Li', table: 4 },
 
   // Table 5
@@ -96,7 +96,7 @@ export const GUESTS = [
   { name: 'Mani Tofigh', table: 7 },
   { name: 'Gianna Imeidopf', table: 7 },
   { name: 'Sean Jan', table: 7 },
-  { name: 'Yichen Ei', table: 7 }, // TODO: confirm spelling — email suggests "Yichen Wei"
+  { name: 'Yichen Wei', table: 7 },
   { name: 'Haoda Wang', table: 7 },
   { name: 'Christine Yu', table: 7 },
 
@@ -109,7 +109,7 @@ export const GUESTS = [
   { name: 'Shawn Wang', table: 8 },
   { name: 'Kevin Sun', table: 8 },
   { name: 'Rudy Sampedro Ibarra', table: 8 },
-  { name: 'Will Zhao', table: 8 },
+  { name: 'William Zhao', table: 8 },
 
   // Table 9
   { name: 'Dr. Charles Chan', table: 9 },
