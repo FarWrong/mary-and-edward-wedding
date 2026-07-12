@@ -2280,25 +2280,6 @@ button {
     font-size: 0.98rem;
 }
 
-.filming-unlock-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.75rem;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--champagne-dark);
-    border-bottom: 1px solid rgba(197, 165, 114, 0.4);
-    padding-bottom: 0.2rem;
-    transition: color 0.3s, border-color 0.3s;
-}
-
-.filming-unlock-link:hover {
-    color: var(--dark);
-    border-color: var(--champagne);
-}
-
 .filming-unlock-form {
     display: flex;
     justify-content: center;

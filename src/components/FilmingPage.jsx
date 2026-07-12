@@ -292,6 +292,21 @@ function FilmingPage() {
 
   /* ---------- couple key ---------- */
 
+  // Discreet unlock: only Mary & Edward know the monogram is a button.
+  const handleMonogramTap = () => {
+    if (albums.couple?.isCouple) {
+      localStorage.removeItem('filming.coupleKey')
+      setCoupleKey('')
+      setKeyPromptOpen(false)
+      setAlbums((prev) => ({ ...prev, couple: null }))
+      if (tab === 'couple') fetchAlbum('couple', { code: '' })
+      showToast('Album locked')
+    } else {
+      setTab('couple')
+      setKeyPromptOpen(true)
+    }
+  }
+
   const submitCoupleKey = async (e) => {
     e.preventDefault()
     const code = keyInput.trim()
@@ -409,6 +424,7 @@ function FilmingPage() {
         >
           <motion.span
             className="filming-monogram"
+            onClick={handleMonogramTap}
             variants={{
               hidden: { opacity: 0, y: 16 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
@@ -611,14 +627,7 @@ function FilmingPage() {
               Everything uploaded here goes straight to Mary&nbsp;&&nbsp;Edward.
               Below are the memories <em>you've</em> left for them.
             </p>
-            {!keyPromptOpen ? (
-              <button
-                className="filming-unlock-link"
-                onClick={() => setKeyPromptOpen(true)}
-              >
-                <LockIcon className="filming-tab-lock" /> Mary or Edward? Unlock your album
-              </button>
-            ) : (
+            {keyPromptOpen && (
               <form className="filming-unlock-form" onSubmit={submitCoupleKey}>
                 <input
                   type="password"
@@ -627,7 +636,7 @@ function FilmingPage() {
                     setKeyInput(e.target.value)
                     setKeyError(false)
                   }}
-                  placeholder="your secret key"
+                  placeholder="the secret word"
                   autoFocus
                 />
                 <button type="submit">Unlock</button>
