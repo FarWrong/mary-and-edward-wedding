@@ -359,14 +359,69 @@ function FilmingPage() {
   const items = album?.items || []
   const isCouple = Boolean(album?.isCouple)
 
+  /* ---------- people: device first, then name.
+     A device's canonical name is the FIRST name it ever uploaded under
+     (later renames don't split their history; earlier anonymous uploads
+     get credited retroactively). Devices sharing a canonical name merge
+     into one person. Nameless devices each stay their own "A guest". */
+
+  const persons = useMemo(() => {
+    const chrono = [...items].sort(
+      (a, b) => new Date(a.uploadedAt) - new Date(b.uploadedAt)
+    )
+    const firstName = new Map()
+    for (const it of chrono) {
+      if (it.name && !firstName.has(it.device)) firstName.set(it.device, it.name)
+    }
+    const keyOf = (it) => {
+      const nm = firstName.get(it.device)
+      return nm ? `name:${normalize(nm)}` : `device:${it.device}`
+    }
+    const displayOf = (it) => firstName.get(it.device) || ''
+    return { firstName, keyOf, displayOf }
+  }, [items])
+
+  const leaderboard = useMemo(() => {
+    const byPerson = new Map()
+    for (const it of items) {
+      const key = persons.keyOf(it)
+      let entry = byPerson.get(key)
+      if (!entry) {
+        entry = { key, name: persons.displayOf(it), count: 0, isYou: false }
+        byPerson.set(key, entry)
+      }
+      entry.count++
+      if (it.device === DEVICE_ID) entry.isYou = true
+    }
+    return [...byPerson.values()].sort((a, b) => b.count - a.count)
+  }, [items, persons])
+
+  const yourRank = leaderboard.findIndex((p) => p.isYou) + 1
+
   const visible = useMemo(() => {
     let arr = items
     if (filter === 'image' || filter === 'video') arr = arr.filter((i) => i.kind === filter)
     if (filter === 'mine') arr = arr.filter((i) => i.device === DEVICE_ID)
     const q = normalize(query.trim())
-    if (q) arr = arr.filter((i) => searchText(i).includes(q))
+    if (q) {
+      arr = arr.filter((i) =>
+        `${normalize(persons.displayOf(i))} ${searchText(i)}`.includes(q)
+      )
+    }
     return arr
-  }, [items, filter, query])
+  }, [items, filter, query, persons])
+
+  // If this device uploaded under a name before (e.g. cleared field, new
+  // session), restore it once so "sharing as" greets them by name.
+  const prefilledRef = useRef(false)
+  useEffect(() => {
+    if (prefilledRef.current) return
+    const mine = persons.firstName.get(DEVICE_ID)
+    if (mine) {
+      prefilledRef.current = true
+      if (!nameRef.current.trim()) setUploaderName(mine)
+    }
+  }, [persons])
 
   /* ---------- lightbox ---------- */
 
@@ -656,6 +711,66 @@ function FilmingPage() {
           </p>
         )}
 
+        {/* stats + leaderboard */}
+        {status === 'ready' && items.length > 0 && (
+          <p className="filming-stats">
+            {items.length}{' '}
+            {tab === 'couple'
+              ? `private ${items.length === 1 ? 'memory' : 'memories'}`
+              : items.length === 1
+                ? 'memory'
+                : 'memories'}
+            {tab === 'everyone' && (
+              <>
+                {' '}· {leaderboard.length}{' '}
+                {leaderboard.length === 1 ? 'storyteller' : 'storytellers'}
+              </>
+            )}
+          </p>
+        )}
+
+        {tab === 'everyone' && status === 'ready' && leaderboard.length > 1 && (
+          <motion.section
+            className="filming-leaderboard"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE }}
+          >
+            <h2>Top Storytellers</h2>
+            <ol>
+              {leaderboard.slice(0, 5).map((p, i) => (
+                <motion.li
+                  key={p.key}
+                  initial={{ opacity: 0, x: -14 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
+                >
+                  <span className="filming-lb-rank">{i + 1}</span>
+                  <span className="filming-lb-name">
+                    {p.name || 'A guest'}
+                    {p.isYou && <em> — you</em>}
+                  </span>
+                  <span className="filming-lb-bar">
+                    <motion.span
+                      initial={{ width: 0 }}
+                      animate={{
+                        width: `${Math.max(8, (p.count / leaderboard[0].count) * 100)}%`,
+                      }}
+                      transition={{ duration: 0.9, delay: 0.2 + i * 0.08, ease: EASE }}
+                    />
+                  </span>
+                  <span className="filming-lb-count">{p.count}</span>
+                </motion.li>
+              ))}
+            </ol>
+            {yourRank > 5 && (
+              <p className="filming-lb-you">
+                You're №{yourRank} — a few more and you're on the board.
+              </p>
+            )}
+          </motion.section>
+        )}
+
         {/* toolbar */}
         {status === 'ready' && items.length > 0 && (
           <div className="filming-toolbar">
@@ -779,7 +894,9 @@ function FilmingPage() {
                 )}
                 <figcaption className="filming-item-meta">
                   <span className="filming-item-name">
-                    {item.device === DEVICE_ID ? 'You' : item.name || 'A guest'}
+                    {item.device === DEVICE_ID
+                      ? 'You'
+                      : persons.displayOf(item) || 'A guest'}
                   </span>
                   <span className="filming-item-date">
                     {formatDate(item.uploadedAt)}
@@ -852,8 +969,8 @@ function FilmingPage() {
               <span>
                 {current.device === DEVICE_ID
                   ? 'Shared by you'
-                  : current.name
-                    ? `Shared by ${current.name}`
+                  : persons.displayOf(current)
+                    ? `Shared by ${persons.displayOf(current)}`
                     : 'Shared by a guest'}
                 {' · '}
                 {formatDate(current.uploadedAt)}

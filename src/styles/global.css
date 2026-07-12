@@ -2345,6 +2345,104 @@ button {
     fill: var(--blush);
 }
 
+/* Stats + leaderboard */
+.filming-stats {
+    text-align: center;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--light-text);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.25rem;
+}
+
+.filming-leaderboard {
+    max-width: 520px;
+    margin: 0 auto 2.25rem;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(197, 165, 114, 0.2);
+    padding: 1.25rem 1.5rem 1.4rem;
+}
+
+.filming-leaderboard h2 {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--champagne-dark);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.filming-leaderboard ol {
+    list-style: none;
+}
+
+.filming-leaderboard li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.4rem 0;
+}
+
+.filming-lb-rank {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--champagne);
+    width: 1.2em;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.filming-lb-name {
+    flex-shrink: 0;
+    max-width: 42%;
+    font-size: 0.95rem;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.filming-lb-name em {
+    font-size: 0.8rem;
+    color: var(--champagne-dark);
+}
+
+.filming-lb-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(168, 155, 165, 0.15);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.filming-lb-bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--lavender), var(--champagne));
+    border-radius: 2px;
+}
+
+.filming-lb-count {
+    flex-shrink: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--medium);
+    min-width: 1.6em;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.filming-lb-you {
+    text-align: center;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--light-text);
+    margin-top: 0.75rem;
+}
+
 /* Toolbar: search + filter chips */
 .filming-toolbar {
     display: flex;
