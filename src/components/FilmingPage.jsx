@@ -107,14 +107,8 @@ const LockIcon = ({ className }) => (
 /* ---------- component ---------- */
 
 const GALLERIES = {
-  everyone: {
-    label: "Everyone's Album",
-    tagline: 'Shared with all our guests — fill it with the day as you saw it.',
-  },
-  couple: {
-    label: 'Just for Mary & Edward',
-    tagline: 'A private gift. Only the two of us will ever see what you leave here.',
-  },
+  everyone: { label: "Everyone's Album" },
+  couple: { label: 'Just for Mary & Edward' },
 }
 
 function FilmingPage() {
@@ -532,19 +526,6 @@ function FilmingPage() {
         ))}
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.p
-          key={tab}
-          className="filming-tagline"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.4, ease: EASE }}
-        >
-          {GALLERIES[tab].tagline}
-        </motion.p>
-      </AnimatePresence>
-
       <main className="filming-main">
         {/* upload card */}
         <motion.section
@@ -711,24 +692,7 @@ function FilmingPage() {
           </p>
         )}
 
-        {/* stats + leaderboard */}
-        {status === 'ready' && items.length > 0 && (
-          <p className="filming-stats">
-            {items.length}{' '}
-            {tab === 'couple'
-              ? `private ${items.length === 1 ? 'memory' : 'memories'}`
-              : items.length === 1
-                ? 'memory'
-                : 'memories'}
-            {tab === 'everyone' && (
-              <>
-                {' '}· {leaderboard.length}{' '}
-                {leaderboard.length === 1 ? 'storyteller' : 'storytellers'}
-              </>
-            )}
-          </p>
-        )}
-
+        {/* leaderboard */}
         {tab === 'everyone' && status === 'ready' && leaderboard.length > 1 && (
           <motion.section
             className="filming-leaderboard"
@@ -736,7 +700,7 @@ function FilmingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE }}
           >
-            <h2>Top Storytellers</h2>
+            <h2>Top Photographers</h2>
             <ol>
               {leaderboard.slice(0, 5).map((p, i) => (
                 <motion.li
