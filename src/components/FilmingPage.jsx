@@ -179,6 +179,7 @@ function FilmingPage() {
     setFilter('all')
     setQuery('')
     setLightbox(null)
+    document.body.style.overflow = ''
   }, [tab]) // eslint-disable-line react-hooks/exhaustive-deps
 
   /* ---------- uploading ---------- */
@@ -357,6 +358,7 @@ function FilmingPage() {
         }
       })
       setLightbox(null)
+      document.body.style.overflow = ''
       showToast('Removed')
     } catch {
       showToast("Couldn't remove that — try again")
