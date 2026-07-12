@@ -18,6 +18,7 @@ function Nav() {
     { label: 'Travel', id: 'travel' },
     { label: 'Registry', id: 'registry' },
     { label: 'RSVP', id: 'rsvp' },
+    { label: 'Share Photos', href: '/filming' },
   ]
 
   const scrollTo = (id) => {
@@ -53,8 +54,12 @@ function Nav() {
         </a>
         <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
           {links.map((link) => (
-            <li key={link.id}>
-              <a onClick={() => scrollTo(link.id)}>{link.label}</a>
+            <li key={link.id || link.href}>
+              {link.href ? (
+                <a href={link.href}>{link.label}</a>
+              ) : (
+                <a onClick={() => scrollTo(link.id)}>{link.label}</a>
+              )}
             </li>
           ))}
         </ul>

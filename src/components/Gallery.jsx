@@ -78,6 +78,19 @@ function Gallery() {
               </motion.div>
             ))}
           </motion.div>
+
+          <motion.div
+            className="gallery-share-cta"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
+          >
+            <p>Caught a moment of us on your phone?</p>
+            <a href="/filming" className="gallery-share-link">
+              Share your photos & videos →
+            </a>
+          </motion.div>
         </div>
       </section>
 
