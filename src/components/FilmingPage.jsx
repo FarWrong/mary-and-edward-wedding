@@ -432,8 +432,8 @@ function FilmingPage() {
               visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
             }}
           >
-            You saw moments we didn't. Share every photo and video you captured —
-            no sign-in, no fuss, straight from your camera roll.
+            Every photograph remembers the day a little differently.
+            Leave us yours.
           </motion.p>
         </motion.div>
       </header>
