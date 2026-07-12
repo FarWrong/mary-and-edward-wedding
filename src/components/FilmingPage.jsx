@@ -231,12 +231,28 @@ function FilmingPage() {
         kind: entry.kind,
       }
       setAlbums((prev) => {
+        let next = prev
         const album = prev[entry.gallery]
-        if (!album) return prev
-        return {
-          ...prev,
-          [entry.gallery]: { ...album, items: [item, ...album.items] },
+        if (album) {
+          next = {
+            ...next,
+            [entry.gallery]: { ...album, items: [item, ...album.items] },
+          }
         }
+        if (entry.gallery === 'couple' && prev.everyone) {
+          const { device, name, uploadedAt } = item
+          next = {
+            ...next,
+            everyone: {
+              ...next.everyone,
+              contributions: [
+                { device, name, uploadedAt },
+                ...(next.everyone.contributions || []),
+              ],
+            },
+          }
+        }
+        return next
       })
       showToast(
         entry.gallery === 'couple'
@@ -359,8 +375,16 @@ function FilmingPage() {
      get credited retroactively). Devices sharing a canonical name merge
      into one person. Nameless devices each stay their own "A guest". */
 
+  // Private-album uploads count toward identity and the leaderboard
+  // (as anonymized {device, name, uploadedAt} — never shown in the grid).
+  const counted = useMemo(() => {
+    const contributions =
+      tab === 'everyone' ? albums.everyone?.contributions || [] : []
+    return [...items, ...contributions]
+  }, [items, tab, albums.everyone])
+
   const persons = useMemo(() => {
-    const chrono = [...items].sort(
+    const chrono = [...counted].sort(
       (a, b) => new Date(a.uploadedAt) - new Date(b.uploadedAt)
     )
     const firstName = new Map()
@@ -373,11 +397,11 @@ function FilmingPage() {
     }
     const displayOf = (it) => firstName.get(it.device) || ''
     return { firstName, keyOf, displayOf }
-  }, [items])
+  }, [counted])
 
   const leaderboard = useMemo(() => {
     const byPerson = new Map()
-    for (const it of items) {
+    for (const it of counted) {
       const key = persons.keyOf(it)
       let entry = byPerson.get(key)
       if (!entry) {
@@ -388,7 +412,7 @@ function FilmingPage() {
       if (it.device === DEVICE_ID) entry.isYou = true
     }
     return [...byPerson.values()].sort((a, b) => b.count - a.count)
-  }, [items, persons])
+  }, [counted, persons])
 
   const yourRank = leaderboard.findIndex((p) => p.isYou) + 1
 

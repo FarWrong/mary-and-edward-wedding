@@ -72,7 +72,15 @@ export default async function handler(req, res) {
         return res.status(200).json({ items, isCouple })
       }
 
-      return res.status(200).json({ items, isCouple: false })
+      // Couple-album uploads count toward the public leaderboard, but only
+      // as anonymized contributions — no urls, filenames, or content leak.
+      const coupleItems = await listGallery('couple')
+      const contributions = coupleItems.map(({ device, name, uploadedAt }) => ({
+        device,
+        name,
+        uploadedAt,
+      }))
+      return res.status(200).json({ items, contributions, isCouple: false })
     }
 
     if (req.method === 'DELETE') {
