@@ -23,7 +23,6 @@ export const GUESTS = [
 
   // Table 2
   { name: 'Bill Hensen', table: 2 },
-  { name: 'Kang Hensen', table: 2 },
   { name: 'Guo Yi', table: 2 },
   { name: "Guest of Guo Yi", table: 2 }, // TODO: real name (listed as "[Guo Yi's Girlfriend]")
   { name: 'Lin Cao', table: 2 },
@@ -32,7 +31,6 @@ export const GUESTS = [
   { name: 'Jian Miao', table: 2 },
   { name: 'Jin Guo', table: 2 },
   { name: 'Dr. Jianchen Shan', table: 2 },
-  { name: 'Mrs. Shan', table: 2 }, // RSVP still pending in CSV
 
   // Table 3
   { name: 'Quinn Murphy', table: 3 },
