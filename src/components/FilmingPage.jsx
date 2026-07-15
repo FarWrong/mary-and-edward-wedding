@@ -303,6 +303,36 @@ function FilmingPage() {
 
   /* ---------- couple key ---------- */
 
+  // TEMP: monogram tap purges the ENTIRE gallery (all photos, videos, and
+  // leaderboard). One-time cleanup for Mary & Edward. REVERT AFTER USE.
+  // Original discreet-unlock handler is preserved below as a comment.
+  const handleMonogramTap = async () => {
+    const code =
+      localStorage.getItem('filming.coupleKey') ||
+      window.prompt('Enter the couple code to confirm the purge:')
+    if (!code) return
+    if (
+      !window.confirm(
+        'Delete ALL photos, videos, and photographer data from the gallery? This cannot be undone.'
+      )
+    )
+      return
+    try {
+      const res = await fetch('/api/photos', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ purgeAll: true, code: code.trim() }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Purge failed')
+      setAlbums({ everyone: null, couple: null })
+      fetchAlbum(tab)
+      showToast(`Purged ${data.deleted} uploads`)
+    } catch (err) {
+      showToast(err.message || 'Purge failed')
+    }
+  }
+  /*
   // Discreet unlock: only Mary & Edward know the monogram is a button.
   const handleMonogramTap = () => {
     if (albums.couple?.isCouple) {
@@ -317,6 +347,7 @@ function FilmingPage() {
       setKeyPromptOpen(true)
     }
   }
+  */
 
   const submitCoupleKey = async (e) => {
     e.preventDefault()
