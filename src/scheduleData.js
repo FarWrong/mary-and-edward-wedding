@@ -52,7 +52,7 @@ export const SCHEDULE = [
       },
       {
         time: '5:15 PM',
-        title: 'Dinner is Served',
+        title: 'Seated for Duet Course',
       },
       {
         time: '5:30 PM',
