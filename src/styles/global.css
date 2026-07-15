@@ -2022,6 +2022,56 @@ button {
 }
 
 /* ============================================================
+   GUEST PAGES CROSS-NAV (schedule / seating / photos / quiz)
+   ============================================================ */
+.guest-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.15rem;
+    margin-top: 1.25rem;
+}
+
+.guest-nav-link {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--medium);
+    padding: 0.5rem 0.6rem;
+    transition: color 0.25s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a.guest-nav-link:hover {
+    color: var(--champagne-dark);
+}
+
+.guest-nav-link.current {
+    color: var(--champagne-dark);
+    border-bottom: 1px solid var(--champagne);
+    padding-bottom: calc(0.5rem - 1px);
+}
+
+.guest-nav-dot {
+    color: var(--champagne-light);
+    font-size: 0.8rem;
+}
+
+@media (max-width: 480px) {
+    .guest-nav-link {
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        padding: 0.5rem 0.35rem;
+    }
+
+    .guest-nav-link.current {
+        padding-bottom: calc(0.5rem - 1px);
+    }
+}
+
+/* ============================================================
    QUIZ PAGE
    ============================================================ */
 .quiz-page {

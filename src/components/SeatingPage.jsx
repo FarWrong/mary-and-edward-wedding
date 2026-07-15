@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CONFIG, EASE } from '../config'
 import { GUESTS } from '../seatingData'
+import GuestPagesNav from './GuestPagesNav'
 
 const NAME_SUFFIXES = new Set(['jr', 'jr.', 'sr', 'sr.', 'ii', 'iii', 'iv'])
 
@@ -100,6 +101,7 @@ function SeatingPage() {
           <p className="seating-intro">
             Welcome! Search for your name below to find your table.
           </p>
+          <GuestPagesNav current="/seating" />
         </motion.div>
       </header>
 

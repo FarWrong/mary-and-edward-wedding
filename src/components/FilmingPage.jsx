@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { upload } from '@vercel/blob/client'
 import { CONFIG, EASE } from '../config'
+import GuestPagesNav from './GuestPagesNav'
 
 /* ---------- identity (no sign-in: a quiet per-device id) ---------- */
 
@@ -526,6 +527,7 @@ function FilmingPage() {
             Every photograph remembers the day a little differently.
             Leave us yours.
           </motion.p>
+          <GuestPagesNav current="/filming" />
         </motion.div>
       </header>
 

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { CONFIG, EASE } from '../config'
 import { SCHEDULE } from '../scheduleData'
+import GuestPagesNav from './GuestPagesNav'
 
 function SchedulePage() {
   useEffect(() => {
@@ -29,6 +30,7 @@ function SchedulePage() {
             <span className="ornament-symbol">&#10047;</span>
             <span className="ornament-line ornament-line-right" />
           </div>
+          <GuestPagesNav current="/schedule" />
         </motion.div>
       </header>
 

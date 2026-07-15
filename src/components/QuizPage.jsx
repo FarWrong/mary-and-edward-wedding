@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CONFIG, EASE } from '../config'
+import GuestPagesNav from './GuestPagesNav'
 
 /* ---------- identity: same quiet per-device id as the photo album ---------- */
 
@@ -333,6 +334,7 @@ function QuizPage() {
             <span className="ornament-symbol">&#10047;</span>
             <span className="ornament-line ornament-line-right" />
           </div>
+          <GuestPagesNav current="/quiz" />
         </motion.div>
       </header>
 
