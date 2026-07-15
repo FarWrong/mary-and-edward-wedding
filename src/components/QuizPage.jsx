@@ -34,24 +34,14 @@ const QUESTIONS = [
     answer: 0,
   },
   {
-    q: 'Edward has an AGI timeline of...',
-    options: ['3-5 years', '10-30 years', 'Never'],
-    answer: 0,
-  },
-  {
     q: "What is Mary's nickname?",
     options: ['Mare Bear', 'Mary Machine', 'Mary Poppins'],
     answer: 1,
   },
   {
-    q: 'How long has the couple been together? (counting today)',
-    options: [
-      '3 years + 5 months',
-      '3 years + 6 months',
-      '4 years',
-      '4 years + 5 months',
-    ],
-    answer: 2,
+    q: 'Where did Mary and Edward meet?',
+    options: ['In the Library', 'College student center', 'At Work'],
+    answer: 1,
   },
   {
     q: 'Who said "I love you" first?',
@@ -95,6 +85,16 @@ const QUESTIONS = [
     options: ['Mary', 'Edward'],
     answer: 1,
     duo: true,
+  },
+  {
+    q: 'How long has the couple been together? (counting today)',
+    options: [
+      '3 years + 5 months',
+      '3 years + 6 months',
+      '4 years',
+      '4 years + 5 months',
+    ],
+    answer: 3,
   },
 ]
 
