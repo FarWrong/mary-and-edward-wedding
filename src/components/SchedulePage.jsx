@@ -22,6 +22,7 @@ function SchedulePage() {
           transition={{ duration: 0.45, ease: EASE }}
           className="seating-header-content"
         >
+          <GuestPagesNav current="/schedule" />
           <span className="seating-monogram">{CONFIG.monogram}</span>
           <span className="section-label">Sunday, July 19, 2026</span>
           <h1 className="section-title">The Big Day</h1>
@@ -30,7 +31,6 @@ function SchedulePage() {
             <span className="ornament-symbol">&#10047;</span>
             <span className="ornament-line ornament-line-right" />
           </div>
-          <GuestPagesNav current="/schedule" />
         </motion.div>
       </header>
 

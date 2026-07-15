@@ -1,6 +1,5 @@
 import BigDay from './components/BigDay'
 import Nav from './components/Nav'
-import Hero from './components/Hero'
 import Details from './components/Details'
 import Venue from './components/Venue'
 import Gallery from './components/Gallery'
@@ -15,7 +14,6 @@ function App() {
 
       <div>
         <Nav />
-        <Hero isReady />
         <main>
           <BigDay />
           <Details />

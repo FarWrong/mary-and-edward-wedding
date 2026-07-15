@@ -90,6 +90,7 @@ function SeatingPage() {
           transition={{ duration: 0.45, ease: EASE }}
           className="seating-header-content"
         >
+          <GuestPagesNav current="/seating" />
           <span className="seating-monogram">{CONFIG.monogram}</span>
           <span className="section-label">Find Your Seat</span>
           <h1 className="section-title">Seating Chart</h1>
@@ -101,7 +102,6 @@ function SeatingPage() {
           <p className="seating-intro">
             Welcome! Search for your name below to find your table.
           </p>
-          <GuestPagesNav current="/seating" />
         </motion.div>
       </header>
 

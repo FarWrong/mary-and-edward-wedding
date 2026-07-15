@@ -498,6 +498,7 @@ function FilmingPage() {
           animate="visible"
           variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
         >
+          <GuestPagesNav current="/filming" />
           <motion.span
             className="filming-monogram"
             onClick={handleMonogramTap}
@@ -527,7 +528,6 @@ function FilmingPage() {
             Every photograph remembers the day a little differently.
             Leave us yours.
           </motion.p>
-          <GuestPagesNav current="/filming" />
         </motion.div>
       </header>
 

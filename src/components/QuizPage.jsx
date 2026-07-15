@@ -326,6 +326,7 @@ function QuizPage() {
           transition={{ duration: 0.45, ease: EASE }}
           className="seating-header-content"
         >
+          <GuestPagesNav current="/quiz" />
           <span className="seating-monogram">{CONFIG.monogram}</span>
           <span className="section-label">A Little Fun</span>
           <h1 className="section-title">How Well Do You Know the Bride &amp; Groom?</h1>
@@ -334,7 +335,6 @@ function QuizPage() {
             <span className="ornament-symbol">&#10047;</span>
             <span className="ornament-line ornament-line-right" />
           </div>
-          <GuestPagesNav current="/quiz" />
         </motion.div>
       </header>
 

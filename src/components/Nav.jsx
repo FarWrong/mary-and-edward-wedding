@@ -1,15 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { CONFIG } from '../config'
 
 function Nav() {
-  const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   const links = [
     { label: 'Schedule', href: '/schedule' },
@@ -41,7 +34,7 @@ function Nav() {
 
   return (
     <>
-      <nav className={`nav${scrolled ? ' scrolled' : ''}`}>
+      <nav className="nav scrolled">
         <a
           href="#home"
           className="nav-monogram"
