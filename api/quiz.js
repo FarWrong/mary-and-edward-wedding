@@ -56,7 +56,7 @@ export default async function handler(req, res) {
         const prev = entries.get(entry.device)
         if (
           !prev ||
-          entry.score > prev.score ||
+          entry.score < prev.score ||
           (entry.score === prev.score && entry.at > prev.at)
         ) {
           entries.set(entry.device, entry)
@@ -81,44 +81,33 @@ export default async function handler(req, res) {
         ? Buffer.from(trimmed, 'utf8').toString('base64url')
         : 'anon'
 
-      // One entry per device: keep the best score, adopt the latest name.
+      // One entry per device: the lowest (first honest) score sticks, so
+      // retrying after seeing the answers can't game the leaderboard.
+      // The latest name still wins.
       const existing = (await listScoreBlobs()).filter(
         (b) => b.pathname.split('/')[1] === device
       )
-      let best = score
+      let recorded = score
       for (const blob of existing) {
         const entry = parseEntry(blob)
-        if (entry && entry.score > best) best = entry.score
+        if (entry && entry.score < recorded) recorded = entry.score
       }
       if (existing.length) {
         await del(existing.map((b) => b.url))
       }
       await put(
-        `quiz/${device}/${nameB64}/${best}of${TOTAL}.json`,
-        JSON.stringify({ device, name: trimmed, score: best, total: TOTAL }),
+        `quiz/${device}/${nameB64}/${recorded}of${TOTAL}.json`,
+        JSON.stringify({ device, name: trimmed, score: recorded, total: TOTAL }),
         {
           access: 'public',
           addRandomSuffix: false,
           contentType: 'application/json',
         }
       )
-      return res.status(200).json({ ok: true, best, improved: score >= best })
+      return res.status(200).json({ ok: true, recorded })
     }
 
-    if (req.method === 'DELETE') {
-      // Couple-only: wipe the whole leaderboard (monogram tap on the quiz page)
-      const secret = process.env.FILMING_COUPLE_CODE
-      if (!secret || req.body?.code !== secret) {
-        return res.status(403).json({ error: 'Not allowed' })
-      }
-      const blobs = await listScoreBlobs()
-      for (let i = 0; i < blobs.length; i += 100) {
-        await del(blobs.slice(i, i + 100).map((b) => b.url))
-      }
-      return res.status(200).json({ ok: true, deleted: blobs.length })
-    }
-
-    res.setHeader('Allow', 'GET, POST, DELETE')
+    res.setHeader('Allow', 'GET, POST')
     return res.status(405).json({ error: 'Method not allowed' })
   } catch (error) {
     return res.status(500).json({ error: error.message })

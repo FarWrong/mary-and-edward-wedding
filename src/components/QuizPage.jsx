@@ -122,7 +122,7 @@ function QuizPage() {
   const [shownScore, setShownScore] = useState(0)
   const [board, setBoard] = useState([])
   const [boardState, setBoardState] = useState('idle') // idle|loading|ready|unavailable
-  const [best, setBest] = useState(null)
+  const [recorded, setRecorded] = useState(null)
 
   const question = step >= 0 && step < QUESTIONS.length ? QUESTIONS[step] : null
   const finished = step === QUESTIONS.length
@@ -249,7 +249,7 @@ function QuizPage() {
     setScore(0)
     setStreak(0)
     setShownScore(0)
-    setBest(null)
+    setRecorded(null)
     setStep(0)
   }
 
@@ -292,7 +292,7 @@ function QuizPage() {
         if (!lb.ok) throw new Error()
         const data = await lb.json()
         if (!cancelled) {
-          setBest(submitted.best)
+          setRecorded(submitted.recorded)
           setBoard(Array.isArray(data.entries) ? data.entries : [])
           setBoardState('ready')
         }
@@ -311,34 +311,6 @@ function QuizPage() {
 
   const myRank = board.findIndex((e) => e.device === DEVICE_ID)
 
-  // Discreet couple-only reset: only Mary & Edward know the monogram is a
-  // button. Requires the couple code; guests who tap it can just cancel.
-  const handleMonogramTap = async () => {
-    const code =
-      localStorage.getItem('filming.coupleKey') ||
-      window.prompt('Enter the couple code:')
-    if (!code) return
-    if (
-      !window.confirm(
-        'Delete ALL quiz scores from the leaderboard? This cannot be undone.'
-      )
-    )
-      return
-    try {
-      const res = await fetch('/api/quiz', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: code.trim() }),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Reset failed')
-      setBoard([])
-      window.alert(`Done. Deleted ${data.deleted} score${data.deleted === 1 ? '' : 's'}.`)
-    } catch (err) {
-      window.alert(err.message || 'Reset failed')
-    }
-  }
-
   return (
     <div className="quiz-page">
       <canvas ref={canvasRef} className="quiz-confetti" aria-hidden="true" />
@@ -353,9 +325,7 @@ function QuizPage() {
           transition={{ duration: 0.8, ease: EASE }}
           className="seating-header-content"
         >
-          <span className="seating-monogram" onClick={handleMonogramTap}>
-            {CONFIG.monogram}
-          </span>
+          <span className="seating-monogram">{CONFIG.monogram}</span>
           <span className="section-label">A Little Fun</span>
           <h1 className="section-title">How Well Do You Know the Bride &amp; Groom?</h1>
           <div className="ornament">
@@ -491,9 +461,10 @@ function QuizPage() {
                   <span> of {QUESTIONS.length}</span>
                 </p>
                 <p className="quiz-results-message">{resultTitle(score)}</p>
-                {best !== null && best > score && (
+                {recorded !== null && recorded < score && (
                   <p className="quiz-best-note">
-                    Your best of {best} still stands on the leaderboard.
+                    Your first score of {recorded} is the one on the
+                    leaderboard. No do-overs!
                   </p>
                 )}
 
