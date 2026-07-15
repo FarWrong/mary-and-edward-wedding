@@ -27,7 +27,7 @@ export const SCHEDULE = [
       {
         time: '2:30 PM',
         title: 'The Newlyweds Depart St. Lawrence',
-        note: 'Afterwards, feel free to arrive at the Mansion early and enjoy the bar, take in the charm of Sayville, or catch the World Cup final until cocktail hour begins.',
+        note: 'Afterwards, feel free to arrive at the Mansion early and enjoy the bar, where the World Cup final will be on the TV, or take in the charm of Sayville until cocktail hour begins.',
       },
     ],
   },
