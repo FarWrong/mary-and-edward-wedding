@@ -26,9 +26,8 @@ export const SCHEDULE = [
       },
       {
         time: '2:30 PM',
-        title: 'Receiving Line & Photos',
-        location: 'St. Lawrence Church',
-        note: 'Afterwards, please enjoy Sayville while you wait for cocktail hour.',
+        title: 'Couple Exits St. Lawrence',
+        note: 'Afterwards, either arrive at the venue early and wait at the bar or enjoy Sayville and wait for cocktail hour.',
       },
     ],
   },
@@ -65,8 +64,7 @@ export const SCHEDULE = [
       },
       {
         time: '6:00 PM',
-        title: 'Dancing All Evening',
-        note: 'Keep an eye out for the photo dash, and a late-night ramen station.',
+        title: 'Dance Floor Opens',
       },
       {
         time: '9:00 PM',
