@@ -7,7 +7,7 @@
 // ============================================================
 export const GUESTS = [
   // Table 1
-  { name: 'Patrick Madigan', table: 1 },
+  { name: 'Patrick Madigan Sr', table: 1 },
   { name: 'Linda Madigan', table: 1 },
   { name: 'Patrick Madigan Jr', table: 1 },
   { name: 'Brian Lee', table: 1 },
@@ -22,9 +22,9 @@ export const GUESTS = [
   { name: 'Nora Madigan', table: 1 },
 
   // Table 2
-  { name: 'Bill Hensen', table: 2 },
+  { name: 'Bill Henson', table: 2 },
   { name: 'Guo Yi', table: 2 },
-  { name: "Guest of Guo Yi", table: 2 }, // TODO: real name (listed as "[Guo Yi's Girlfriend]")
+  { name: 'Jennifer Zhao', table: 2 },
   { name: 'Lin Cao', table: 2 },
   { name: 'Hong Lei Zhou', table: 2 },
   { name: 'Jie Cheng', table: 2 },
@@ -108,6 +108,7 @@ export const GUESTS = [
   { name: 'Kevin Sun', table: 8 },
   { name: 'Rudy Sampedro Ibarra', table: 8 },
   { name: 'William Zhao', table: 8 },
+  { name: 'Hengrui Zhang', table: 8 },
 
   // Table 9
   { name: 'Dr. Charles Chan', table: 9 },
