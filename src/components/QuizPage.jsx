@@ -35,21 +35,6 @@ const QUESTIONS = [
     duo: true,
   },
   {
-    q: "What's Edward's most played League of Legends champion?",
-    options: ['Ivern', 'Irelia', 'Vayne'],
-    answer: 1,
-  },
-  {
-    q: "Who is Edward's favorite musical artist?",
-    options: ['Yorushika', 'Taylor Swift', 'TYOSIN'],
-    answer: 0,
-  },
-  {
-    q: "What is Mary's nickname?",
-    options: ['Mare Bear', 'Mary Machine', 'Mary Poppins'],
-    answer: 1,
-  },
-  {
     q: 'Who is more likely to be late?',
     options: ['Mary', 'Edward'],
     answer: 1,
@@ -95,6 +80,21 @@ const QUESTIONS = [
       '4 years + 5 months',
     ],
     answer: 3,
+  },
+  {
+    q: "What's Edward's most played League of Legends champion?",
+    options: ['Ivern', 'Irelia', 'Vayne'],
+    answer: 1,
+  },
+  {
+    q: "Who is Edward's favorite musical artist?",
+    options: ['Yorushika', 'Taylor Swift', 'TYOSIN'],
+    answer: 0,
+  },
+  {
+    q: "What is Mary's nickname?",
+    options: ['Mare Bear', 'Mary Machine', 'Mary Poppins'],
+    answer: 1,
   },
 ]
 
