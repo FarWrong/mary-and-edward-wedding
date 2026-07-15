@@ -105,7 +105,20 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, best, improved: score >= best })
     }
 
-    res.setHeader('Allow', 'GET, POST')
+    if (req.method === 'DELETE') {
+      // Couple-only: wipe the whole leaderboard (monogram tap on the quiz page)
+      const secret = process.env.FILMING_COUPLE_CODE
+      if (!secret || req.body?.code !== secret) {
+        return res.status(403).json({ error: 'Not allowed' })
+      }
+      const blobs = await listScoreBlobs()
+      for (let i = 0; i < blobs.length; i += 100) {
+        await del(blobs.slice(i, i + 100).map((b) => b.url))
+      }
+      return res.status(200).json({ ok: true, deleted: blobs.length })
+    }
+
+    res.setHeader('Allow', 'GET, POST, DELETE')
     return res.status(405).json({ error: 'Method not allowed' })
   } catch (error) {
     return res.status(500).json({ error: error.message })

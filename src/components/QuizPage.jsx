@@ -24,6 +24,17 @@ const DEVICE_ID = getDeviceId()
 
 const QUESTIONS = [
   {
+    q: 'Where did Mary and Edward meet?',
+    options: ['In the Library', 'College student center', 'At Work'],
+    answer: 1,
+  },
+  {
+    q: 'Who said "I love you" first?',
+    options: ['Mary', 'Edward'],
+    answer: 0,
+    duo: true,
+  },
+  {
     q: "What's Edward's most played League of Legends champion?",
     options: ['Ivern', 'Irelia', 'Vayne'],
     answer: 1,
@@ -37,17 +48,6 @@ const QUESTIONS = [
     q: "What is Mary's nickname?",
     options: ['Mare Bear', 'Mary Machine', 'Mary Poppins'],
     answer: 1,
-  },
-  {
-    q: 'Where did Mary and Edward meet?',
-    options: ['In the Library', 'College student center', 'At Work'],
-    answer: 1,
-  },
-  {
-    q: 'Who said "I love you" first?',
-    options: ['Mary', 'Edward'],
-    answer: 0,
-    duo: true,
   },
   {
     q: 'Who is more likely to be late?',
@@ -311,6 +311,34 @@ function QuizPage() {
 
   const myRank = board.findIndex((e) => e.device === DEVICE_ID)
 
+  // Discreet couple-only reset: only Mary & Edward know the monogram is a
+  // button. Requires the couple code; guests who tap it can just cancel.
+  const handleMonogramTap = async () => {
+    const code =
+      localStorage.getItem('filming.coupleKey') ||
+      window.prompt('Enter the couple code:')
+    if (!code) return
+    if (
+      !window.confirm(
+        'Delete ALL quiz scores from the leaderboard? This cannot be undone.'
+      )
+    )
+      return
+    try {
+      const res = await fetch('/api/quiz', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: code.trim() }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Reset failed')
+      setBoard([])
+      window.alert(`Done. Deleted ${data.deleted} score${data.deleted === 1 ? '' : 's'}.`)
+    } catch (err) {
+      window.alert(err.message || 'Reset failed')
+    }
+  }
+
   return (
     <div className="quiz-page">
       <canvas ref={canvasRef} className="quiz-confetti" aria-hidden="true" />
@@ -325,7 +353,9 @@ function QuizPage() {
           transition={{ duration: 0.8, ease: EASE }}
           className="seating-header-content"
         >
-          <span className="seating-monogram">{CONFIG.monogram}</span>
+          <span className="seating-monogram" onClick={handleMonogramTap}>
+            {CONFIG.monogram}
+          </span>
           <span className="section-label">A Little Fun</span>
           <h1 className="section-title">How Well Do You Know the Bride &amp; Groom?</h1>
           <div className="ornament">
