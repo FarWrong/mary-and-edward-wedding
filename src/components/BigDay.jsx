@@ -24,6 +24,13 @@ const LINKS = [
     text: 'Add your photos and videos to our shared wedding album.',
     cta: 'Open the Album',
   },
+  {
+    href: '/quiz',
+    icon: '❉',
+    title: 'The Quiz',
+    text: 'How well do you know the bride and groom? Play for bragging rights.',
+    cta: 'Test Yourself',
+  },
 ]
 
 function BigDay() {

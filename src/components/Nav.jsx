@@ -15,6 +15,7 @@ function Nav() {
     { label: 'Schedule', href: '/schedule' },
     { label: 'Seating', href: '/seating' },
     { label: 'Share Photos', href: '/filming' },
+    { label: 'Quiz', href: '/quiz' },
     { label: 'Details', id: 'details' },
     { label: 'Venue', id: 'venue' },
     { label: 'Travel', id: 'travel' },
