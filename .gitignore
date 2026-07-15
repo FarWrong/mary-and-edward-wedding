@@ -1,3 +1,7 @@
 node_modules
 dist
 .DS_Store
+
+# Planning spreadsheets — contain guests' personal info, never commit
+Wedding Planning! - Wedding Guest List & RSVP.csv
+Guo Wedding Timeline.xlsx

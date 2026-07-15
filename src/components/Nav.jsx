@@ -18,6 +18,7 @@ function Nav() {
     { label: 'Travel', id: 'travel' },
     { label: 'Registry', id: 'registry' },
     { label: 'RSVP', id: 'rsvp' },
+    { label: 'Schedule', href: '/schedule' },
     { label: 'Share Photos', href: '/filming' },
   ]
 

@@ -1931,6 +1931,171 @@ button {
     }
 }
 
+/* ============================================================
+   SCHEDULE PAGE
+   ============================================================ */
+.schedule-page {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+}
+
+.schedule-wrapper {
+    flex: 1;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem clamp(3rem, 8vw, 5rem);
+}
+
+.schedule-group {
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.schedule-section-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--mauve-dark);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.schedule-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(197, 165, 114, 0.35), transparent);
+}
+
+.schedule-events {
+    list-style: none;
+}
+
+.schedule-event {
+    display: grid;
+    grid-template-columns: 5rem auto 1fr;
+    gap: 0 1rem;
+    position: relative;
+}
+
+.schedule-time {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    font-weight: 500;
+    color: var(--champagne-dark);
+    text-align: right;
+    white-space: nowrap;
+    padding-top: 0.1rem;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Timeline dot + connecting line */
+.schedule-marker {
+    position: relative;
+    width: 9px;
+    display: block;
+}
+
+.schedule-marker::before {
+    content: '';
+    position: absolute;
+    top: 0.45rem;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1px solid var(--champagne);
+    background: var(--cream);
+}
+
+.schedule-marker::after {
+    content: '';
+    position: absolute;
+    top: 1.2rem;
+    bottom: -0.45rem;
+    left: 4px;
+    width: 1px;
+    background: rgba(197, 165, 114, 0.3);
+}
+
+.schedule-event:last-child .schedule-marker::after {
+    display: none;
+}
+
+.schedule-body {
+    padding-bottom: 1.5rem;
+}
+
+.schedule-event:last-child .schedule-body {
+    padding-bottom: 0.25rem;
+}
+
+.schedule-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    color: var(--dark);
+    line-height: 1.4;
+}
+
+.schedule-location {
+    font-size: clamp(0.9rem, 1.3vw, 1rem);
+    color: var(--medium);
+    font-style: italic;
+    margin-top: 0.15rem;
+}
+
+.schedule-note {
+    font-size: clamp(0.85rem, 1.2vw, 0.95rem);
+    color: var(--light-text);
+    line-height: 1.6;
+    margin-top: 0.4rem;
+    max-width: 380px;
+}
+
+.schedule-closing {
+    text-align: center;
+    font-family: 'Pinyon Script', cursive;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    color: var(--mauve-dark);
+    margin: clamp(2rem, 5vw, 3rem) 0 1.5rem;
+}
+
+.schedule-links {
+    display: flex;
+    justify-content: center;
+}
+
+.schedule-link-btn {
+    display: inline-block;
+    padding: 0.65rem 2rem;
+    border: 1px solid var(--champagne);
+    font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--champagne-dark);
+    transition: all 0.3s var(--ease-elegant);
+}
+
+.schedule-link-btn:hover {
+    background: var(--champagne);
+    color: #fff;
+}
+
+@media (max-width: 400px) {
+    .schedule-event {
+        grid-template-columns: 4.25rem auto 1fr;
+        gap: 0 0.75rem;
+    }
+}
+
 /* Nav overlay */
 .nav-overlay {
     position: fixed;
