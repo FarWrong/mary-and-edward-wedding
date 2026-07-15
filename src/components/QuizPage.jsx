@@ -266,15 +266,15 @@ function QuizPage() {
         }
         return s + 1
       })
-    }, 110)
+    }, 70)
 
     const celebrations = []
     if (score >= 8) {
-      celebrations.push(setTimeout(() => burst(120, { x: 0.3, y: 0.3 }), 300))
-      celebrations.push(setTimeout(() => burst(120, { x: 0.7, y: 0.3 }), 700))
+      celebrations.push(setTimeout(() => burst(120, { x: 0.3, y: 0.3 }), 200))
+      celebrations.push(setTimeout(() => burst(120, { x: 0.7, y: 0.3 }), 450))
     }
     if (score === QUESTIONS.length) {
-      celebrations.push(setTimeout(() => burst(200, { x: 0.5, y: 0.2 }), 1200))
+      celebrations.push(setTimeout(() => burst(200, { x: 0.5, y: 0.2 }), 750))
     }
 
     let cancelled = false
@@ -322,7 +322,7 @@ function QuizPage() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: EASE }}
+          transition={{ duration: 0.45, ease: EASE }}
           className="seating-header-content"
         >
           <span className="seating-monogram">{CONFIG.monogram}</span>
@@ -347,7 +347,7 @@ function QuizPage() {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.4, ease: EASE }}
+                transition={{ duration: 0.25, ease: EASE }}
               >
                 <input
                   type="text"
@@ -370,7 +370,7 @@ function QuizPage() {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
-                transition={{ duration: 0.35, ease: EASE }}
+                transition={{ duration: 0.25, ease: EASE }}
               >
                 <div className="quiz-progress-row">
                   <p className="quiz-progress">
@@ -450,7 +450,7 @@ function QuizPage() {
                 className="quiz-step quiz-results"
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, ease: EASE }}
+                transition={{ duration: 0.25, ease: EASE }}
               >
                 <span className="quiz-results-flourish">&#10047;</span>
                 <h2 className="quiz-results-title">

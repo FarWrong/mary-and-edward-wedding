@@ -18,7 +18,7 @@ function SchedulePage() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: EASE }}
+          transition={{ duration: 0.45, ease: EASE }}
           className="seating-header-content"
         >
           <span className="seating-monogram">{CONFIG.monogram}</span>
@@ -41,9 +41,9 @@ function SchedulePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{
-              duration: 0.6,
+              duration: 0.35,
               ease: EASE,
-              delay: Math.min(groupIndex * 0.08, 0.3),
+              delay: Math.min(groupIndex * 0.03, 0.1),
             }}
           >
             <h2 className="schedule-section-title">{group.section}</h2>

@@ -19,9 +19,9 @@ function SplitText({ text, delay = 0, isReady, className }) {
             initial={{ y: '120%', rotate: 8 }}
             animate={isReady ? { y: '0%', rotate: 0 } : {}}
             transition={{
-              duration: 0.65,
+              duration: 0.5,
               ease: EASE,
-              delay: delay + i * 0.045,
+              delay: delay + i * 0.03,
             }}
           >
             {char === ' ' ? '\u00A0' : char}
@@ -66,7 +66,7 @@ function Hero({ isReady }) {
           className="hero-invitation"
           initial={{ clipPath: 'inset(0 100% 0 0)' }}
           animate={isReady ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-          transition={{ duration: 0.8, ease: EASE, delay: d }}
+          transition={{ duration: 0.5, ease: EASE, delay: d }}
         >
           Together with their families
         </motion.p>
@@ -75,20 +75,20 @@ function Hero({ isReady }) {
         <h1 className="hero-names">
           <SplitText
             text={CONFIG.partner1}
-            delay={d + 0.4}
+            delay={d + 0.15}
             isReady={isReady}
           />
           <motion.span
             className="hero-ampersand"
             initial={{ opacity: 0, scale: 0.3, rotate: -180 }}
             animate={isReady ? { opacity: 1, scale: 1, rotate: 0 } : {}}
-            transition={{ duration: 0.8, ease: EASE, delay: d + 0.75 }}
+            transition={{ duration: 0.6, ease: EASE, delay: d + 0.35 }}
           >
             &amp;
           </motion.span>
           <SplitText
             text={CONFIG.partner2}
-            delay={d + 0.9}
+            delay={d + 0.45}
             isReady={isReady}
           />
         </h1>
@@ -99,7 +99,7 @@ function Hero({ isReady }) {
             className="hero-line"
             initial={{ scaleX: 0 }}
             animate={isReady ? { scaleX: 1 } : {}}
-            transition={{ duration: 0.7, ease: EASE, delay: d + 1.4 }}
+            transition={{ duration: 0.5, ease: EASE, delay: d + 0.7 }}
           />
 
           {/* Date - clip-path reveal */}
@@ -107,7 +107,7 @@ function Hero({ isReady }) {
             className="hero-date-block"
             initial={{ clipPath: 'inset(0 100% 0 0)' }}
             animate={isReady ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-            transition={{ duration: 0.8, ease: EASE, delay: d + 1.6 }}
+            transition={{ duration: 0.5, ease: EASE, delay: d + 0.8 }}
           >
             <span className="hero-date-highlight">July Nineteenth</span>
             <span className="hero-date-year">Two Thousand Twenty-Six</span>
@@ -117,7 +117,7 @@ function Hero({ isReady }) {
             className="hero-venue"
             initial={{ opacity: 0, y: 10 }}
             animate={isReady ? { opacity: 0.75, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: d + 1.9 }}
+            transition={{ duration: 0.4, delay: d + 0.95 }}
           >
             The Mansion at West Sayville &bull; Long Island, New York
           </motion.p>
@@ -128,7 +128,7 @@ function Hero({ isReady }) {
           className="countdown-wrapper"
           initial={{ opacity: 0 }}
           animate={isReady ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: d + 2.1 }}
+          transition={{ duration: 0.4, delay: d + 1.0 }}
         >
           <div className="countdown">
             {countdownUnits.map((label, i) => (
@@ -138,7 +138,7 @@ function Hero({ isReady }) {
                   className="countdown-unit"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isReady ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, ease: EASE, delay: d + 2.2 + i * 0.1 }}
+                  transition={{ duration: 0.4, ease: EASE, delay: d + 1.05 + i * 0.05 }}
                 >
                   <span className="countdown-number">
                     {label === 'Days'
@@ -157,7 +157,7 @@ function Hero({ isReady }) {
         className="scroll-indicator"
         initial={{ opacity: 0 }}
         animate={isReady ? { opacity: 1 } : {}}
-        transition={{ duration: 0.6, delay: d + 2.8 }}
+        transition={{ duration: 0.4, delay: d + 1.3 }}
       >
         <span>Scroll</span>
         <div className="scroll-arrow" />
