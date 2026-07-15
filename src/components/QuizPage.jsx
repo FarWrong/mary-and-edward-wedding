@@ -39,6 +39,11 @@ const QUESTIONS = [
     answer: 0,
   },
   {
+    q: "What is Mary's nickname?",
+    options: ['Mare Bear', 'Mary Machine', 'Mary Poppins'],
+    answer: 1,
+  },
+  {
     q: 'How long has the couple been together? (counting today)',
     options: [
       '3 years + 5 months',
@@ -328,9 +333,6 @@ function QuizPage() {
             <span className="ornament-symbol">&#10047;</span>
             <span className="ornament-line ornament-line-right" />
           </div>
-          <p className="seating-intro">
-            Eleven questions. No prizes, just bragging rights at the reception.
-          </p>
         </motion.div>
       </header>
 
@@ -347,10 +349,6 @@ function QuizPage() {
                 exit={{ opacity: 0, y: -14 }}
                 transition={{ duration: 0.4, ease: EASE }}
               >
-                <p className="quiz-intro-text">
-                  Your best score goes on the leaderboard, one entry per
-                  device. Add your name if you dare, or play anonymously.
-                </p>
                 <input
                   type="text"
                   className="quiz-name-input"

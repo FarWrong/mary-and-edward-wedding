@@ -1,6 +1,6 @@
 import { list, put, del } from '@vercel/blob'
 
-const TOTAL = 11
+const TOTAL = 12
 
 // Score blobs: quiz/{deviceId}/{nameB64|anon}/{score}of{total}.json
 // Everything the leaderboard needs lives in the pathname, so a single

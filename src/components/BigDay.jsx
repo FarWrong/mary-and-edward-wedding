@@ -7,7 +7,7 @@ const LINKS = [
     href: '/schedule',
     icon: '✦',
     title: 'Schedule',
-    text: 'See how the day unfolds, from the ceremony to the last dance.',
+    text: 'Times and locations for the ceremony, cocktail hour, and reception.',
     cta: 'View the Schedule',
   },
   {
@@ -37,11 +37,7 @@ function BigDay() {
   return (
     <section className="section bigday" id="bigday">
       <div className="container">
-        <SectionHeader
-          label="Sunday, July 19, 2026"
-          title="The Big Day"
-          subtitle="Everything you need for the celebration, all in one place."
-        />
+        <SectionHeader label="Sunday, July 19, 2026" title="The Big Day" />
         <div className="bigday-grid">
           {LINKS.map((link, i) => (
             <motion.a
