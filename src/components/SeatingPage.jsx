@@ -43,7 +43,7 @@ function SeatingPage() {
   const barRef = useRef(null)
 
   useEffect(() => {
-    document.title = `Seating Chart — ${CONFIG.partner2} & ${CONFIG.partner1}`
+    document.title = `Seating Chart · ${CONFIG.partner2} & ${CONFIG.partner1}`
   }, [])
 
   const filtered = useMemo(() => {
@@ -173,9 +173,9 @@ function SeatingPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              No guests found by that name &mdash; try just a first or last
-              name, or find us at the reception and we&rsquo;ll point you to
-              your seat!
+              No guests found by that name. Try just a first or last name,
+              or find us at the reception and we&rsquo;ll point you to your
+              seat!
             </motion.p>
           ) : (
             groups.map(([letter, guests], groupIndex) => (

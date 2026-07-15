@@ -5,7 +5,7 @@ import { SCHEDULE } from '../scheduleData'
 
 function SchedulePage() {
   useEffect(() => {
-    document.title = `Schedule — ${CONFIG.partner2} & ${CONFIG.partner1}`
+    document.title = `Schedule · ${CONFIG.partner2} & ${CONFIG.partner1}`
   }, [])
 
   return (
@@ -29,10 +29,6 @@ function SchedulePage() {
             <span className="ornament-symbol">&#10047;</span>
             <span className="ornament-line ornament-line-right" />
           </div>
-          <p className="seating-intro">
-            Here&rsquo;s how the day unfolds, from the first bell to the last
-            dance.
-          </p>
         </motion.div>
       </header>
 

@@ -1,5 +1,5 @@
 // ============================================================
-// WEDDING DAY SCHEDULE — Sunday, July 19, 2026
+// WEDDING DAY SCHEDULE: Sunday, July 19, 2026
 // Guest-facing events only (from the Guo Wedding Timeline).
 // Each event: { time, title, location?, note? }
 // ============================================================
@@ -28,7 +28,7 @@ export const SCHEDULE = [
         time: '2:30 PM',
         title: 'Receiving Line & Photos',
         location: 'St. Lawrence Church',
-        note: 'Afterwards, enjoy a leisurely break in Sayville — cocktail hour begins at 4:00.',
+        note: 'Afterwards, please enjoy Sayville while you wait for cocktail hour.',
       },
     ],
   },
@@ -38,7 +38,7 @@ export const SCHEDULE = [
       {
         time: '4:00 PM',
         title: 'Cocktail Hour',
-        location: 'The Mansion at West Sayville — cocktail room & grounds',
+        location: 'The Mansion at West Sayville, cocktail room & grounds',
         note: 'Drinks and hors d’oeuvres while the wedding party finishes photos.',
       },
     ],
@@ -66,7 +66,7 @@ export const SCHEDULE = [
       {
         time: '6:00 PM',
         title: 'Dancing All Evening',
-        note: 'Keep an eye out for the photo dash — and a late-night ramen station.',
+        note: 'Keep an eye out for the photo dash, and a late-night ramen station.',
       },
       {
         time: '9:00 PM',

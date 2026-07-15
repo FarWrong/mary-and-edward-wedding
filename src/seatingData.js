@@ -3,7 +3,7 @@
 // Converted from "Wedding Planning! - Wedding Guest List & RSVP.csv"
 // (all guests with a table number; declined guests excluded).
 // Each entry is { name: 'First Last', table: <number or label> }.
-// Order here doesn't matter — the page sorts alphabetically.
+// Order here doesn't matter; the page sorts alphabetically.
 // ============================================================
 export const GUESTS = [
   // Table 1
