@@ -26,8 +26,8 @@ export const SCHEDULE = [
       },
       {
         time: '2:30 PM',
-        title: 'Couple Exits St. Lawrence',
-        note: 'Afterwards, either arrive at the venue early and wait at the bar or enjoy Sayville and wait for cocktail hour.',
+        title: 'The Newlyweds Depart St. Lawrence',
+        note: 'Afterwards, feel free to arrive at the Mansion early and enjoy the bar, or take in the charm of Sayville until cocktail hour begins.',
       },
     ],
   },
