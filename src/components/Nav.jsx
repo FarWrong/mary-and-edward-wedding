@@ -12,14 +12,12 @@ function Nav() {
   }, [])
 
   const links = [
+    { label: 'Schedule', href: '/schedule' },
+    { label: 'Seating', href: '/seating' },
+    { label: 'Share Photos', href: '/filming' },
     { label: 'Details', id: 'details' },
     { label: 'Venue', id: 'venue' },
-    { label: 'Gallery', id: 'gallery' },
     { label: 'Travel', id: 'travel' },
-    { label: 'Registry', id: 'registry' },
-    { label: 'RSVP', id: 'rsvp' },
-    { label: 'Schedule', href: '/schedule' },
-    { label: 'Share Photos', href: '/filming' },
   ]
 
   const scrollTo = (id) => {

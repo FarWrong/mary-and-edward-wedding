@@ -84,27 +84,6 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'DELETE') {
-      // TEMP: one-time full gallery purge, triggered from the filming page
-      // monogram. Requires the couple code. REVERT AFTER USE.
-      if (req.body?.purgeAll) {
-        const secret = process.env.FILMING_COUPLE_CODE
-        if (!secret || req.body.code !== secret) {
-          return res.status(403).json({ error: 'Not allowed' })
-        }
-        const blobs = []
-        let cursor
-        do {
-          const page = await list({ prefix: 'filming/', cursor, limit: 1000 })
-          blobs.push(...page.blobs)
-          cursor = page.cursor
-        } while (cursor)
-        for (let i = 0; i < blobs.length; i += 100) {
-          await del(blobs.slice(i, i + 100).map((b) => b.url))
-        }
-        return res.status(200).json({ ok: true, deleted: blobs.length })
-      }
-      // END TEMP
-
       const { url, device } = req.body || {}
       if (typeof url !== 'string' || typeof device !== 'string' || !device) {
         return res.status(400).json({ error: 'Missing url or device' })

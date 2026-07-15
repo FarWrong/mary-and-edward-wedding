@@ -649,6 +649,89 @@ button {
 }
 
 /* ============================================================
+   THE BIG DAY (schedule / seating / photos quick links)
+   ============================================================ */
+.bigday {
+    background: var(--cream);
+}
+
+.bigday-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.bigday-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: clamp(2.25rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--warm-cream);
+    border: 1px solid rgba(197, 165, 114, 0.35);
+    transition: transform 0.4s var(--ease-elegant), border-color 0.4s,
+        box-shadow 0.4s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.bigday-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--champagne);
+    box-shadow: 0 12px 32px rgba(58, 50, 56, 0.08);
+}
+
+.bigday-card-inner-border {
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(197, 165, 114, 0.15);
+    pointer-events: none;
+}
+
+.bigday-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.85rem;
+    color: var(--dark);
+}
+
+.bigday-card p {
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    color: var(--medium);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    max-width: 300px;
+}
+
+.bigday-cta {
+    margin-top: auto;
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(0.8rem, 1.1vw, 0.9rem);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--champagne-dark);
+    border-bottom: 1px solid rgba(197, 165, 114, 0.4);
+    padding-bottom: 3px;
+    transition: border-color 0.3s;
+}
+
+.bigday-card:hover .bigday-cta {
+    border-color: var(--champagne);
+}
+
+@media (max-width: 900px) {
+    .bigday-grid {
+        grid-template-columns: 1fr;
+        max-width: 440px;
+    }
+}
+
+/* ============================================================
    WEDDING DETAILS
    ============================================================ */
 .details {
