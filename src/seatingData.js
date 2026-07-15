@@ -23,7 +23,7 @@ export const GUESTS = [
 
   // Table 2
   { name: 'Bill Henson', table: 2 },
-  { name: 'Guo Yi', table: 2 },
+  { name: 'Yi Guo', table: 2 },
   { name: 'Jennifer Zhao', table: 2 },
   { name: 'Lin Cao', table: 2 },
   { name: 'Hong Lei Zhou', table: 2 },

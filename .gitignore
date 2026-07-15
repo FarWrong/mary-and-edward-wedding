@@ -5,3 +5,7 @@ dist
 # Planning spreadsheets — contain guests' personal info, never commit
 Wedding Planning! - Wedding Guest List & RSVP.csv
 Guo Wedding Timeline.xlsx
+
+# Local secrets
+.env
+.env.*
