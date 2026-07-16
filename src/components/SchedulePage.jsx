@@ -52,7 +52,15 @@ function SchedulePage() {
             <ol className="schedule-events">
               {group.events.map((event) => (
                 <li key={`${event.time}-${event.title}`} className="schedule-event">
-                  <span className="schedule-time">{event.time}</span>
+                  <span className="schedule-time">
+                    {Array.isArray(event.time)
+                      ? event.time.map((t) => (
+                          <span key={t} className="schedule-time-line">
+                            {t}
+                          </span>
+                        ))
+                      : event.time}
+                  </span>
                   <span className="schedule-marker" aria-hidden="true" />
                   <div className="schedule-body">
                     <h3 className="schedule-title">{event.title}</h3>

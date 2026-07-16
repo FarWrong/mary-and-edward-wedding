@@ -2503,6 +2503,11 @@ a.guest-nav-link:hover {
     font-variant-numeric: tabular-nums;
 }
 
+.schedule-time-line {
+    display: block;
+    line-height: 1.5;
+}
+
 /* Timeline dot + connecting line */
 .schedule-marker {
     position: relative;
