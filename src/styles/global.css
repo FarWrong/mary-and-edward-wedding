@@ -2187,6 +2187,16 @@ a.guest-nav-link:hover {
     transform: scale(0.97);
 }
 
+.quiz-btn-secondary {
+    margin-top: 0.75rem;
+    background: transparent;
+    color: var(--champagne-dark);
+}
+
+.quiz-btn-secondary:hover {
+    background: rgba(197, 165, 114, 0.08);
+}
+
 .quiz-progress-row {
     display: flex;
     align-items: center;

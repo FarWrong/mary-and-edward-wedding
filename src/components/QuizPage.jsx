@@ -111,11 +111,61 @@ function resultTitle(score) {
   return 'Plenty to catch up on at the reception!'
 }
 
+function QuizBoard({ board, boardState, unavailableMessage }) {
+  const myRank = board.findIndex((e) => e.device === DEVICE_ID)
+  return (
+    <div className="quiz-board">
+      <h3 className="quiz-board-title">Leaderboard</h3>
+      {boardState === 'loading' && (
+        <p className="quiz-board-status">Tallying the scores&hellip;</p>
+      )}
+      {boardState === 'unavailable' && (
+        <p className="quiz-board-status">{unavailableMessage}</p>
+      )}
+      {boardState === 'ready' && board.length === 0 && (
+        <p className="quiz-board-status">
+          No scores yet. Be the first on the board!
+        </p>
+      )}
+      {boardState === 'ready' && board.length > 0 && (
+        <ol className="quiz-board-list">
+          {board.slice(0, 10).map((entry, i) => (
+            <li
+              key={entry.device}
+              className={entry.device === DEVICE_ID ? 'me' : ''}
+            >
+              <span className="quiz-board-rank">{i + 1}</span>
+              <span className="quiz-board-name">
+                {entry.name || 'Anonymous Guest'}
+                {entry.device === DEVICE_ID && ' (you)'}
+              </span>
+              <span className="quiz-board-score">
+                {entry.score}/{entry.total}
+              </span>
+            </li>
+          ))}
+          {myRank >= 10 && (
+            <li className="me">
+              <span className="quiz-board-rank">{myRank + 1}</span>
+              <span className="quiz-board-name">
+                {board[myRank].name || 'Anonymous Guest'} (you)
+              </span>
+              <span className="quiz-board-score">
+                {board[myRank].score}/{board[myRank].total}
+              </span>
+            </li>
+          )}
+        </ol>
+      )}
+    </div>
+  )
+}
+
 function QuizPage() {
   const [name, setName] = useState(
     () => localStorage.getItem('filming.name') || ''
   )
-  const [step, setStep] = useState(-1) // -1 intro, 0..n-1 questions, n results
+  const [step, setStep] = useState(-1) // -2 leaderboard, -1 intro, 0..n-1 questions, n results
   const [picked, setPicked] = useState(null)
   const [score, setScore] = useState(0)
   const [streak, setStreak] = useState(0)
@@ -254,6 +304,24 @@ function QuizPage() {
     setStep(0)
   }
 
+  const loadBoard = useCallback(async () => {
+    setBoardState('loading')
+    try {
+      const res = await fetch('/api/quiz')
+      if (!res.ok) throw new Error()
+      const data = await res.json()
+      setBoard(Array.isArray(data.entries) ? data.entries : [])
+      setBoardState('ready')
+    } catch {
+      setBoardState('unavailable')
+    }
+  }, [])
+
+  const showBoard = () => {
+    setStep(-2)
+    loadBoard()
+  }
+
   /* ---------- results: count-up, celebration, leaderboard ---------- */
 
   useEffect(() => {
@@ -310,8 +378,6 @@ function QuizPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finished])
 
-  const myRank = board.findIndex((e) => e.device === DEVICE_ID)
-
   return (
     <div className="quiz-page">
       <canvas ref={canvasRef} className="quiz-confetti" aria-hidden="true" />
@@ -361,6 +427,35 @@ function QuizPage() {
                 />
                 <button className="quiz-btn" onClick={start}>
                   Start the Quiz
+                </button>
+                <button className="quiz-btn quiz-btn-secondary" onClick={showBoard}>
+                  See the Leaderboard
+                </button>
+              </motion.div>
+            )}
+
+            {step === -2 && (
+              <motion.div
+                key="board"
+                className="quiz-step quiz-results"
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
+                transition={{ duration: 0.25, ease: EASE }}
+              >
+                <QuizBoard
+                  board={board}
+                  boardState={boardState}
+                  unavailableMessage="The leaderboard is napping. Check back in a moment."
+                />
+                <button className="quiz-btn" onClick={start}>
+                  Take the Quiz
+                </button>
+                <button
+                  className="quiz-btn quiz-btn-secondary"
+                  onClick={() => setStep(-1)}
+                >
+                  Back
                 </button>
               </motion.div>
             )}
@@ -470,48 +565,11 @@ function QuizPage() {
                   </p>
                 )}
 
-                <div className="quiz-board">
-                  <h3 className="quiz-board-title">Leaderboard</h3>
-                  {boardState === 'loading' && (
-                    <p className="quiz-board-status">Tallying the scores&hellip;</p>
-                  )}
-                  {boardState === 'unavailable' && (
-                    <p className="quiz-board-status">
-                      The leaderboard is napping. Your score will count once
-                      it wakes up.
-                    </p>
-                  )}
-                  {boardState === 'ready' && (
-                    <ol className="quiz-board-list">
-                      {board.slice(0, 10).map((entry, i) => (
-                        <li
-                          key={entry.device}
-                          className={entry.device === DEVICE_ID ? 'me' : ''}
-                        >
-                          <span className="quiz-board-rank">{i + 1}</span>
-                          <span className="quiz-board-name">
-                            {entry.name || 'Anonymous Guest'}
-                            {entry.device === DEVICE_ID && ' (you)'}
-                          </span>
-                          <span className="quiz-board-score">
-                            {entry.score}/{entry.total}
-                          </span>
-                        </li>
-                      ))}
-                      {myRank >= 10 && (
-                        <li className="me">
-                          <span className="quiz-board-rank">{myRank + 1}</span>
-                          <span className="quiz-board-name">
-                            {board[myRank].name || 'Anonymous Guest'} (you)
-                          </span>
-                          <span className="quiz-board-score">
-                            {board[myRank].score}/{board[myRank].total}
-                          </span>
-                        </li>
-                      )}
-                    </ol>
-                  )}
-                </div>
+                <QuizBoard
+                  board={board}
+                  boardState={boardState}
+                  unavailableMessage="The leaderboard is napping. Your score will count once it wakes up."
+                />
 
                 <button className="quiz-btn" onClick={restart}>
                   Try Again
