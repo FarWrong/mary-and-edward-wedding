@@ -15,8 +15,6 @@ export const GUESTS = [
   { name: 'Brian Madigan', table: 1 },
   { name: 'Kevin Madigan', table: 1 },
   { name: 'Erica Madigan', table: 1 },
-  { name: 'Valentin Urraco', table: 1 },
-  { name: 'Susan Urraco', table: 1 },
   { name: 'Joseph Madigan', table: 1 },
   { name: 'Patrick Madigan', table: 1 }, // second Patrick (Bradenton, FL)
   { name: 'Nora Madigan', table: 1 },
@@ -46,7 +44,6 @@ export const GUESTS = [
   // Table 4
   { name: 'Neal Lim', table: 4 },
   { name: 'Keya Shah', table: 4 },
-  { name: 'Tabias Kurzweil', table: 4 },
   { name: 'Ethan Ramos', table: 4 },
   { name: 'Andrew Li', table: 4 },
   { name: 'Junyu Li', table: 4 },
@@ -70,6 +67,7 @@ export const GUESTS = [
   { name: 'Cavan Mahler', table: 5 },
   { name: 'Gary Gaudio', table: 5 },
   { name: 'Dylan Roberts', table: 5 },
+  { name: 'Dunja Froman', table: 5 },
 
   // Table 6
   { name: 'Allison Siegal', table: 6 },
